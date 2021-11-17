@@ -28,6 +28,11 @@ export const AppReducer = (state: IAppState , action: IActionReducer<APP_ACTIONS
       ..._state,
       ..._action.payload,
       status: STATUS_TYPES.STATUS_SUCCESS
+    }),
+    [APP_ACTIONS.ASSINGN_ITEM]: (_state, _action) => ({
+      ..._state,
+      ..._action.payload,
+      status: STATUS_TYPES.STATUS_SUCCESS
     })
   }
 

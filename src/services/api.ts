@@ -28,3 +28,11 @@ export const getListById = (id: string, callback:(data: IList) => void) => {
       callback(response)
     })
 }
+
+export const updateList = (id: string, newList: IList) => {
+  firebase
+    .database()
+    .ref(`dev/lists`)
+    .child(id)
+    .set(newList)
+}

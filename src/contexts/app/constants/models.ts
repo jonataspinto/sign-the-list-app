@@ -9,6 +9,7 @@ export enum APP_ACTIONS {
   LOAD_LIST= "LOAD_LIST",
   IS_FETCHING= "IS_FETCHING",
   HAS_ERROR= "HAS_ERROR",
+  ASSINGN_ITEM= "ASSINGN_ITEM",
 }
 
 export type IAppState = {

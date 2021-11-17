@@ -1,5 +1,6 @@
 import { useCallback, useContext } from "react";
-import { getListById, getLists } from "../../../services/api";
+import { getListById, getLists, updateList } from "../../../services/api";
+import { IList } from "../../../types/IList";
 import { AppContext } from "../appContext";
 import { APP_ACTIONS } from "../constants";
 
@@ -41,10 +42,21 @@ export const useApp = () => {
     },
     [dispatch]
   );
+  
+  const assingnItem = useCallback((id: string, list: IList) => {
+    dispatch({
+      type: APP_ACTIONS.IS_FETCHING,
+    })
+    updateList(id, list);
+    dispatch({
+      type: APP_ACTIONS.ASSINGN_ITEM,
+    })
+  }, [dispatch]);
 
   return {
     ...state,
     fetchLists,
     loadList,
+    assingnItem
   };
 };
