@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import {v4 as uuid} from "uuid"
+import { ItemCard } from "../../components/ItemCard";
 import { useApp } from "../../contexts/app";
 
 export const ListItemPage = () => {
@@ -19,9 +20,7 @@ export const ListItemPage = () => {
 
       <div>
         {list?.items.map(item => (
-          <div key={uuid()}>
-            {item?.name}
-          </div>
+          <ItemCard key={uuid()} item={item}/>
         ))}
       </div>
     </div>

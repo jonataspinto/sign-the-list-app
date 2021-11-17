@@ -10,7 +10,7 @@ export type Image = {
   title: string
 }
 
-export type Item = {
+export type IItem = {
   description: string
   image: Image
   name: string
@@ -20,7 +20,7 @@ export type IList = {
   email: string
   id: string
   image: Image
-  items: Item[]
+  items: IItem[]
   name: string
   phone: string
 }
