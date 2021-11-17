@@ -17,3 +17,14 @@ export const getLists = (callback:(data: IObjectLiteral<IList>) => void) => {
 
   return data
 }
+
+export const getListById = (id: string, callback:(data: IList) => void) => {
+  firebase
+    .database()
+    .ref(`dev/lists/${id}`)
+    .on('value', (snapshot) => {
+      const response = snapshot.val() as IList
+
+      callback(response)
+    })
+}

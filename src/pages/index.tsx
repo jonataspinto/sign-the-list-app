@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { useApp } from "../contexts/app";
 
 export const Home = () => {
-  const { loadLists } = useApp();
+  const { fetchLists } = useApp();
 
   useEffect(() => {
-    loadLists();
-  }, [loadLists]);
+    fetchLists();
+  }, [fetchLists]);
 
   return <ListsSection />;
 };
