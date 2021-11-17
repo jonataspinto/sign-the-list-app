@@ -1,13 +1,14 @@
-import { ILists } from '../types/IList'
+import { IList } from '../types/IList'
+import { IObjectLiteral } from '../types/ObjectLiteral'
 import firebase from './firebase'
 
-export const getLists = (callback:(data: ILists) => void) => {
-  let data: ILists = {} as ILists
+export const getLists = (callback:(data: IObjectLiteral<IList>) => void) => {
+  let data: IObjectLiteral<IList> = {} as IObjectLiteral<IList>
   firebase
     .database()
     .ref('dev')
     .on('value', (snapshot) => {
-      const response = snapshot.val() as ILists
+      const response = snapshot.val() as IObjectLiteral<IList>
 
       data = response
 

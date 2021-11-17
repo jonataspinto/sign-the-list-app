@@ -1,14 +1,13 @@
-import { ListsSection } from '../components/ListsSection'
-import { useEffect, useState } from 'react'
-import { getLists } from '../services/api'
-import { ILists } from '../types/IList'
+import { ListsSection } from "../components/ListsSection";
+import { useEffect } from "react";
+import { useApp } from "../contexts/app";
 
 export const Home = () => {
-  const [lists, setLists] = useState<ILists>({} as ILists)
+  const { loadLists } = useApp();
 
   useEffect(() => {
-    getLists((response) => setLists(response))
-  }, [])
+    loadLists();
+  }, [loadLists]);
 
-  return <ListsSection data={lists} />
-}
+  return <ListsSection />;
+};

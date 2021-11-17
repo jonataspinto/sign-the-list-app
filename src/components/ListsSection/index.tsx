@@ -1,21 +1,20 @@
-import { ILists } from '../../types/IList'
-import { ListCard } from '../ListCard'
+import { useApp } from "../../contexts/app";
+import { ListCard } from "../ListCard";
 
-type ListsProps = {
-  data: ILists
-}
+export const ListsSection = () => {
+  const { lists: data } = useApp();
 
-export const ListsSection = ({ data }: ListsProps) => {
-  const keys = data.lists ? Object.keys(data?.lists) : []
+  const keys = data ? Object.keys(data) : [];
 
   return (
     <div>
       Listas
-      {keys.map((key) => (
-        <div key={data.lists[key].id}>
-          <ListCard list={data.lists[key]} />
-        </div>
-      ))}
+      {data &&
+        keys.map((key) => (
+          <div key={data[key].id}>
+            <ListCard list={data[key]} />
+          </div>
+        ))}
     </div>
-  )
-}
+  );
+};
