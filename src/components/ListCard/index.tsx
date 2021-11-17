@@ -11,7 +11,7 @@ export const ListCard = ({ list }: ListCardProps) => {
     <S.ListCardWrapper>
       <S.ListCardTitle>{list.name}</S.ListCardTitle>
       <S.ListCardEmail>{list.email}</S.ListCardEmail>
-      <S.ListCardPhone>{list.phone}</S.ListCardPhone>
+      <S.ListCardPhone>{list.phoneNumber}</S.ListCardPhone>
       <Link
         to={`/list/${list.id}`}
       >

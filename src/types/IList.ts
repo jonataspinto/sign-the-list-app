@@ -1,28 +1,26 @@
 import { IObjectLiteral } from './ObjectLiteral'
 
-export type RawFile = {
-  path: string
-}
-
-export type Image = {
-  rawFile: RawFile
-  src: string
-  title: string
+export type Subscriber = {
+  email: string;
+  name: string;
+  photoURL: string;
 }
 
 export type IItem = {
-  description: string
-  image: Image
-  name: string
+  description: string;
+  name: string;
+  photoURL: string;
+  subscriber: Subscriber;
 }
 
 export type IList = {
-  email: string
-  id: string
-  image: Image
-  items: IItem[]
-  name: string
-  phone: string
+  description: string;
+  email: string;
+  id: string;
+  items: IItem[];
+  name: string;
+  phoneNumber: string;
+  photoURL: string;
 }
 
 export type ILists = {
