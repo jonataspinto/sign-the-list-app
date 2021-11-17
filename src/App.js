@@ -1,21 +1,20 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AppProvider } from "./contexts/app";
-import { Home } from "./pages";
-import { ListItemPage } from "./pages/ListItemPage";
+import { AuthProvider } from "./contexts/auth";
+import { Home, ListItemPage, Login } from "./pages";
 
 function App() {
   return (
     <BrowserRouter>
-      <AppProvider>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/list/:id">
-            <ListItemPage />
-          </Route>
-        </Switch>
-      </AppProvider>
+      <AuthProvider>
+        <AppProvider>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/list/:id" component={ListItemPage} />
+            <Route exact path="/login" component={Login} />
+          </Switch>
+        </AppProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

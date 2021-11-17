@@ -14,7 +14,7 @@ export const AppReducer = (state: IAppState , action: IActionReducer<APP_ACTIONS
     return state;
   }
 
-  const REDUCERS: IObjectLiteralReducer<IAppState, IAppState, IActionReducer<APP_ACTIONS, IAppState>> = {
+  const REDUCERS: IObjectLiteralReducer<IAppState, IActionReducer<APP_ACTIONS, IAppState>> = {
     [APP_ACTIONS.IS_FETCHING]: (_state, _action) => ({
       ..._state,
       status: STATUS_TYPES.STATUS_LOADING

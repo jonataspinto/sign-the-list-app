@@ -1,6 +1,6 @@
 import { IObjectLiteral } from './ObjectLiteral'
 
-export type Subscriber = {
+export type ISubscriber = {
   email: string;
   name: string;
   photoURL: string;
@@ -10,7 +10,7 @@ export type IItem = {
   description: string;
   name: string;
   photoURL: string;
-  subscriber: Subscriber;
+  subscriber: ISubscriber;
 }
 
 export type IList = {
