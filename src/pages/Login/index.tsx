@@ -5,7 +5,6 @@ import { useAuth } from "../../contexts/auth";
 export const Login = () => {
   const { loginGoogle, isAuthenticated } = useAuth();
   const history = useHistory();
-
   useEffect(() => {
     if (isAuthenticated) {
       history.push("/");
