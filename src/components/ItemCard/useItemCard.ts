@@ -71,7 +71,7 @@ export const useItemCard = () => {
       handleAssingnItem(
         listData,
         position,
-        !signedByMe ? user : ({} as ISubscriber),
+        !signedByMe(listData.items[position]) ? user : ({} as ISubscriber),
       );
       closeModal();
     }
