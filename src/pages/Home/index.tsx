@@ -1,5 +1,5 @@
-import { ListsSection } from "../../components/ListsSection";
 import { useEffect } from "react";
+import { ListsSection } from "../../components/ListsSection";
 import { useApp } from "../../contexts/app";
 
 export const Home = () => {

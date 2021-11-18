@@ -29,7 +29,15 @@
     "lint:css": "stylelint './src/**/*.styled.ts'",
     "deploy:firebase": "firebase deploy --only hosting:sign-the-list",
     "deploy": "yarn build && yarn deploy:firebase",
-    "eject": "react-scripts eject"
+    "lint": "eslint src --max-warnings=0",
+    "eject": "react-scripts eject",
+    "postinstall": "husky install",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*": [
+      "yarn lint --fix"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +61,16 @@
     "@types/react-modal": "^3.13.1",
     "@types/styled-components": "^5.1.15",
     "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.0.3",
     "stylelint": "^14.1.0",
     "stylelint-config-recommended": "^6.0.0",
     "stylelint-config-styled-components": "^0.1.1",

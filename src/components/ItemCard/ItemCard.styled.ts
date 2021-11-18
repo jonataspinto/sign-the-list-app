@@ -10,4 +10,3 @@ export const ItemCardWrapper = styled.div`
 export const ItemCardTitle = styled.h2``;
 
 export const ItemCardDescription = styled.p``;
-

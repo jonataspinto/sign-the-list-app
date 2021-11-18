@@ -1,2 +1,2 @@
-export { AppProvider } from './appContext';
-export { useApp } from "./hooks"
+export { AppProvider } from "./appContext";
+export { useApp } from "./hooks";

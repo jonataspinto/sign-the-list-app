@@ -5,19 +5,29 @@ import { initialStateAuthReducer } from ".";
 
 export const AuthSetUserReducer = () => {
   const REDUCERS: IObjectLiteralReducer<IAuthState, IActionReducer<AuthActionsType, IAuthState>> = {
-    [AuthActionsType.SET_USER]: (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => ({
+    [AuthActionsType.SET_USER]: (
+      state: IAuthState,
+    ) => ({
       ...state,
       loadingAuth: true,
     }),
-    [AuthActionsType.SET_USER_SUCCESS]: (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => ({
+    [AuthActionsType.SET_USER_SUCCESS]: (
+      state: IAuthState,
+      action: IActionReducer<AuthActionsType, IAuthState>,
+    ) => ({
       ...state,
       ...action.payload,
       loadingAuth: false,
     }),
-    [AuthActionsType.SET_USER_ERROR]: (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => ({
+    [AuthActionsType.SET_USER_ERROR]: (
+      state: IAuthState,
+      action: IActionReducer<AuthActionsType, IAuthState>,
+    ) => ({
+      ...state,
+      ...action.payload,
       ...initialStateAuthReducer,
     }),
-  }
+  };
 
   return REDUCERS;
-}
+};

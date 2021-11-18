@@ -3,11 +3,12 @@ import {
   useReducer,
   Reducer,
   useEffect,
+  useMemo,
 } from "react";
+import { useHistory } from "react-router-dom";
 import { AuthReducer, initialStateAuthReducer } from "./reducer";
 import { IAuthContext, IAuthState, AuthActionsType } from "./interfaces";
 import { IActionReducer } from "../../types/IActionReducer";
-import { useHistory } from "react-router";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -17,11 +18,11 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
       IAuthState,
       IActionReducer<AuthActionsType, IAuthState>
     >
-  >(AuthReducer, initialStateAuthReducer)
+  >(AuthReducer, initialStateAuthReducer);
 
   const { isAuthenticated } = state;
 
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -29,14 +30,14 @@ export const AuthProvider = ({ children }: IAuthContext.IProvider) => {
     }
   }, [isAuthenticated, history]);
 
+  const providerValue = useMemo(() => ({
+    state,
+    dispatch,
+  }), [state, dispatch]);
+
   return (
-    <AuthContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
+    <AuthContext.Provider value={providerValue}>
       { children }
     </AuthContext.Provider>
   );
-}
+};

@@ -9,8 +9,8 @@ export const ListsSection = () => {
   return (
     <div>
       Listas
-      {data &&
-        keys.map((key) => (
+      {data
+        && keys.map((key) => (
           <div key={data[key].id}>
             <ListCard list={data[key]} />
           </div>

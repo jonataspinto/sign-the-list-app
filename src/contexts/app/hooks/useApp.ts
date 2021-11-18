@@ -14,14 +14,14 @@ export const useApp = () => {
   const fetchLists = useCallback(() => {
     dispatch({
       type: APP_ACTIONS.IS_FETCHING,
-    })
+    });
 
     getLists((lists) => {
-      dispatch({ 
-        type: APP_ACTIONS.FETCH_LISTS, 
-        payload: { 
-          ...lists
-        } 
+      dispatch({
+        type: APP_ACTIONS.FETCH_LISTS,
+        payload: {
+          ...lists,
+        },
       });
     });
   }, [dispatch]);
@@ -30,33 +30,31 @@ export const useApp = () => {
     (id: string) => {
       dispatch({
         type: APP_ACTIONS.IS_FETCHING,
-      })
-      getListById(id, (list) =>
-        dispatch({ 
-          type: APP_ACTIONS.LOAD_LIST, 
-          payload: { 
-            list
-          } 
-        })
-      );
+      });
+      getListById(id, (list) => dispatch({
+        type: APP_ACTIONS.LOAD_LIST,
+        payload: {
+          list,
+        },
+      }));
     },
-    [dispatch]
+    [dispatch],
   );
-  
+
   const assingnItem = useCallback((id: string, list: IList) => {
     dispatch({
       type: APP_ACTIONS.IS_FETCHING,
-    })
+    });
     updateList(id, list);
     dispatch({
       type: APP_ACTIONS.ASSINGN_ITEM,
-    })
+    });
   }, [dispatch]);
 
   return {
     ...state,
     fetchLists,
     loadList,
-    assingnItem
+    assingnItem,
   };
 };
