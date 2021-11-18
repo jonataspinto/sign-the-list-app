@@ -9,7 +9,7 @@ export const useItemCard = () => {
   const code = useRef<HTMLInputElement>(null);
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const signedByMe = useCallback((item: IItem) => (user.email === item?.subscriber?.email), []);
+  const signedByMe = useCallback((item: IItem) => (user.email === item?.subscriber?.email), [user.email]);
   
   const hasSubscriber = useCallback((item) => (!!item?.subscriber?.email), []);
 
