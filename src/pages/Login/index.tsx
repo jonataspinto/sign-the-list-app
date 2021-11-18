@@ -4,7 +4,6 @@ import { useAuth } from "../../contexts/auth";
 
 export const Login = () => {
   const { loginGoogle, isAuthenticated } = useAuth();
-  const a = null;
   const history = useHistory();
 
   useEffect(() => {
