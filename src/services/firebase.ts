@@ -1,6 +1,6 @@
-import * as app from 'firebase/app'
-import 'firebase/database'
-import 'firebase/auth'
+import * as app from "firebase/app";
+import "firebase/database";
+import "firebase/auth";
 
 app.initializeApp({
   apiKey: process.env.REACT_APP_APIKEY,
@@ -10,10 +10,10 @@ app.initializeApp({
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
-})
+});
 
 export const googleProvider = new app.auth.GoogleAuthProvider();
 
 export const firebaseAuthGoogle = app.auth();
 
-export default app
+export default app;

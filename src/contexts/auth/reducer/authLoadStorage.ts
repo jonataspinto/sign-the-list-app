@@ -4,22 +4,31 @@ import { IAuthState, AuthActionsType } from "../interfaces";
 
 export const AuthLoadStorageReducer = () => {
   const REDUCERS: IObjectLiteralReducer<IAuthState, IActionReducer<AuthActionsType, IAuthState>> = {
-    [AuthActionsType.LOAD_STORAGE_DATA]: (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => ({
+    [AuthActionsType.LOAD_STORAGE_DATA]: (
+      state: IAuthState,
+    ) => ({
       ...state,
-      loadingAuth: true
+      loadingAuth: true,
     }),
-    [AuthActionsType.LOAD_STORAGE_DATA_SUCCESS]: (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => ({
+    [AuthActionsType.LOAD_STORAGE_DATA_SUCCESS]: (
+      state: IAuthState,
+      action: IActionReducer<AuthActionsType, IAuthState>,
+    ) => ({
       ...state,
       ...action.payload,
       isAuthenticated: true,
-      loadingAuth: false
+      loadingAuth: false,
     }),
-    [AuthActionsType.LOAD_STORAGE_DATA_ERROR]: (state: IAuthState, action: IActionReducer<AuthActionsType, IAuthState>) => ({
+    [AuthActionsType.LOAD_STORAGE_DATA_ERROR]: (
+      state: IAuthState,
+      action: IActionReducer<AuthActionsType, IAuthState>,
+    ) => ({
       ...state,
+      ...action.payload,
       isAuthenticated: false,
-      loadingAuth: false
-    })
-  }
+      loadingAuth: false,
+    }),
+  };
 
   return REDUCERS;
-}
+};

@@ -1,7 +1,11 @@
-import { createContext, Reducer, useReducer } from 'react';
-import { IActionReducer } from '../../types/IActionReducer';
-import { initialStateAuthReducer, AppReducer} from './appReducer';
-import { APP_ACTIONS, IAppContext, IAppContextProvider, IAppState } from './constants';
+import {
+  createContext, Reducer, useMemo, useReducer,
+} from "react";
+import { IActionReducer } from "../../types/IActionReducer";
+import { initialStateAuthReducer, AppReducer } from "./appReducer";
+import {
+  APP_ACTIONS, IAppContext, IAppContextProvider, IAppState,
+} from "./constants";
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -10,13 +14,13 @@ export const AppProvider = ({ children }: IAppContextProvider) => {
     Reducer<IAppState, IActionReducer<APP_ACTIONS, IAppState>>
   >(AppReducer, initialStateAuthReducer);
 
+  const providerValue = useMemo(() => ({
+    state,
+    dispatch,
+  }), [state, dispatch]);
+
   return (
-    <AppContext.Provider
-      value={{
-        state,
-        dispatch
-      }}
-    >
+    <AppContext.Provider value={providerValue}>
       {children}
     </AppContext.Provider>
   );

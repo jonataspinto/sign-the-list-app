@@ -9,19 +9,22 @@ import { ISubscriber } from "../../../types/IList";
 export const initialStateAuthReducer = {
   isAuthenticated: false,
   loadingAuth: false,
-  user: {} as ISubscriber
-}
+  user: {} as ISubscriber,
+};
 
-export const AuthReducer = (state: IAuthState , action: IActionReducer<AuthActionsType, IAuthState>) => {
-  if(!action.type){
+export const AuthReducer = (
+  state: IAuthState,
+  action: IActionReducer<AuthActionsType, IAuthState>,
+) => {
+  if (!action.type) {
     return state;
   }
 
   const REDUCERS: IObjectLiteralReducer<IAuthState, IActionReducer<AuthActionsType, IAuthState>> = {
     ...AuthLoadStorageReducer(),
     ...AuthLoginGoogleReducer(),
-    ...AuthSetUserReducer()
-  }
+    ...AuthSetUserReducer(),
+  };
 
   return REDUCERS[action.type](state, action);
-}
+};

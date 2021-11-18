@@ -1,4 +1,4 @@
-import Modal from "react-modal";  
+import Modal from "react-modal";
 import { IItem, IList } from "../../types/IList";
 import { useItemCard } from "./useItemCard";
 import * as S from "./ItemCard.styled";
@@ -9,7 +9,7 @@ type ItemCardProps = {
 };
 
 export const ItemCard = ({ item, position }: ItemCardProps) => {
-  const { 
+  const {
     list,
     getButtonLabel,
     validateActiveButton,
@@ -19,7 +19,7 @@ export const ItemCard = ({ item, position }: ItemCardProps) => {
     signedByMe,
     handleSubmit,
     code,
-    hasSubscriber
+    hasSubscriber,
   } = useItemCard();
 
   return (
@@ -27,9 +27,12 @@ export const ItemCard = ({ item, position }: ItemCardProps) => {
       <S.ItemCardTitle>{item.name}</S.ItemCardTitle>
       <S.ItemCardDescription>{item.description}</S.ItemCardDescription>
       <S.ItemCardDescription>
-        Assinado por {item.subscriber?.name}
+        Assinado por
+        {" "}
+        {item.subscriber?.name}
       </S.ItemCardDescription>
       <button
+        type="button"
         disabled={validateActiveButton(hasSubscriber(item), signedByMe(item))}
         onClick={() => setIsOpen(true)}
       >
@@ -42,16 +45,17 @@ export const ItemCard = ({ item, position }: ItemCardProps) => {
         ariaHideApp={false}
         contentLabel="Example Modal"
       >
-        <input 
-          ref={code} 
+        <input
+          ref={code}
           type="text"
           placeholder="Código de confirmação"
           name="code"
         />
         <button
+          type="button"
           disabled={validateActiveButton(hasSubscriber(item), signedByMe(item))}
           onClick={() => {
-            handleSubmit(list as IList, position, code?.current?.value as string)
+            handleSubmit(list as IList, position, code?.current?.value as string);
           }}
         >
           {getButtonLabel(hasSubscriber(item), signedByMe(item))}

@@ -10,16 +10,16 @@ export const useLoginGoogle = () => {
   const context = useContext(AuthContext);
   // const { setStorageData, removeSorageData } = useStorage();
 
-  if(!context) {
-    throw new Error("Ops... não foi possivel conectar-se ao provider.")
+  if (!context) {
+    throw new Error("Ops... não foi possivel conectar-se ao provider.");
   }
 
-  const { dispatch } = context
+  const { dispatch } = context;
 
   const loginGoogle = useCallback(async () => {
     dispatch({
-      type: AuthActionsType.LOGIN_GOOGLE
-    })
+      type: AuthActionsType.LOGIN_GOOGLE,
+    });
     try {
       const user = await LoginGoogle();
 
@@ -32,29 +32,29 @@ export const useLoginGoogle = () => {
       dispatch({
         type: AuthActionsType.LOGIN_GOOGLE_SUCCESS,
         payload: {
-          user: user as ISubscriber
-        }
-      })
+          user: user as ISubscriber,
+        },
+      });
     } catch (error) {
       dispatch({
         type: AuthActionsType.LOGIN_GOOGLE_ERROR,
-      })
+      });
     }
   }, [
     dispatch,
     // setStorageData
-  ])
+  ]);
 
   const logoutGoogle = useCallback(async () => {
     dispatch({
-      type: AuthActionsType.LOGOUT_GOOGLE
-    })
+      type: AuthActionsType.LOGOUT_GOOGLE,
+    });
     try {
       await LogOutGoogle();
       dispatch({
         type: AuthActionsType.LOGOUT_GOOGLE_SUCCESS,
-        payload: initialStateAuthReducer
-      })
+        payload: initialStateAuthReducer,
+      });
 
       // removeSorageData([
       //   "user",
@@ -63,19 +63,18 @@ export const useLoginGoogle = () => {
       //   "persist:root"
       // ])
     } catch (error) {
-      console.log(error)
       dispatch({
         type: AuthActionsType.LOGOUT_GOOGLE_ERROR,
-      })
+      });
     }
     // eslint-disable-next-line
   }, [
     // dispatch,
     // removeSorageData
-  ])
+  ]);
 
   return {
     loginGoogle,
-    logoutGoogle
-  }
-}
+    logoutGoogle,
+  };
+};

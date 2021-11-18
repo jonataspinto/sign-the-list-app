@@ -9,38 +9,44 @@ export const useItemCard = () => {
   const code = useRef<HTMLInputElement>(null);
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  const signedByMe = useCallback((item: IItem) => (user.email === item?.subscriber?.email), [user.email]);
-  
+  const signedByMe = useCallback((item: IItem) => (
+    user.email === item?.subscriber?.email
+  ), [user.email]);
+
   const hasSubscriber = useCallback((item) => (!!item?.subscriber?.email), []);
 
-  const validateActiveButton = useCallback((hasSubscriber: boolean, signedByMe: boolean) => {
-    if (hasSubscriber && !signedByMe) {
+  const validateActiveButton = useCallback((_hasSubscriber: boolean, _signedByMe: boolean) => {
+    if (_hasSubscriber && !_signedByMe) {
       return true;
     }
 
-    if (signedByMe) {
+    if (_signedByMe) {
       return false;
     }
 
-    return false
+    return false;
   }, []);
-  
-  const getButtonLabel = useCallback((hasSubscriber: boolean, signedByMe: boolean) => {
-    if (hasSubscriber && !signedByMe) {
+
+  const getButtonLabel = useCallback((_hasSubscriber: boolean, _signedByMe: boolean) => {
+    if (_hasSubscriber && !_signedByMe) {
       return "Assinar";
     }
 
-    if (signedByMe) {
+    if (_signedByMe) {
       return "Liberar";
     }
 
-    return "Assinar"
+    return "Assinar";
   }, []);
 
-  const handleAssingnItem = useCallback((list: IList, positionItem: number, subscriber: ISubscriber) => {
-    let draftList = { ...list };
-    const draftItems = list.items.map((i) => i);
-    const coppyItem = list.items.find((_, index) => index === positionItem);
+  const handleAssingnItem = useCallback((
+    _list: IList,
+    positionItem: number,
+    subscriber: ISubscriber,
+  ) => {
+    let draftList = { ..._list };
+    const draftItems = _list.items.map((i) => i);
+    const coppyItem = _list.items.find((_, index) => index === positionItem);
 
     if (coppyItem) {
       draftItems?.splice(positionItem, 1, {
@@ -51,25 +57,25 @@ export const useItemCard = () => {
 
     draftList = { ...draftList, items: draftItems };
 
-    assingnItem(list.id, draftList);
+    assingnItem(_list.id, draftList);
   }, [assingnItem]);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-  }, [])
+  }, []);
 
-  const handleSubmit = useCallback((listData: IList, position: number, code: string) => {
-    const isValid = listData.code === code;
+  const handleSubmit = useCallback((listData: IList, position: number, _code: string) => {
+    const isValid = listData.code === _code;
 
     if (isValid) {
       handleAssingnItem(
         listData,
         position,
-        !signedByMe ? user : ({} as ISubscriber)
+        !signedByMe ? user : ({} as ISubscriber),
       );
-      closeModal()
+      closeModal();
     }
-  }, [handleAssingnItem, closeModal, signedByMe, user])
+  }, [handleAssingnItem, closeModal, signedByMe, user]);
 
   return {
     list,
@@ -82,5 +88,5 @@ export const useItemCard = () => {
     getButtonLabel,
     closeModal,
     handleSubmit,
-  }
-}
+  };
+};
