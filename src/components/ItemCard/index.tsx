@@ -1,7 +1,7 @@
 import Modal from "react-modal";  
 import { IItem, IList } from "../../types/IList";
 import { useItemCard } from "./useItemCard";
-import * as S from "./ItemCardStyled";
+import * as S from "./ItemCard.styled";
 
 type ItemCardProps = {
   item: IItem;
