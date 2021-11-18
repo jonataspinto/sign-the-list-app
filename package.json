@@ -1,5 +1,5 @@
 {
-  "name": "sign-the-list-app2",
+  "name": "sign-the-list-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +14,7 @@
     "firebase": "7.19.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-modal": "^3.14.4",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "styled-components": "^5.3.3",
@@ -46,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-modal": "^3.13.1",
     "@types/styled-components": "^5.1.15",
     "@types/uuid": "^8.3.1"
   }

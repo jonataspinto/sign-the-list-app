@@ -21,6 +21,7 @@ export type IList = {
   name: string;
   phoneNumber: string;
   photoURL: string;
+  code: string
 }
 
 export type ILists = {

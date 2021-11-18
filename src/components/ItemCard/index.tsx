@@ -1,5 +1,5 @@
-import { useAuth } from "../../contexts/auth";
-import { IItem, IList, ISubscriber } from "../../types/IList";
+import Modal from "react-modal";  
+import { IItem, IList } from "../../types/IList";
 import { useItemCard } from "./useItemCard";
 import * as S from "./ItemCardStyled";
 
@@ -9,17 +9,17 @@ type ItemCardProps = {
 };
 
 export const ItemCard = ({ item, position }: ItemCardProps) => {
-  const { user } = useAuth();
-
-  const signedByMe = user.email === item?.subscriber?.email;
-
-  const hasSubscriber = !!item?.subscriber?.email;
-
   const { 
     list,
     getButtonLabel,
     validateActiveButton,
-    handleAssingnItem
+    modalIsOpen,
+    setIsOpen,
+    closeModal,
+    signedByMe,
+    handleSubmit,
+    code,
+    hasSubscriber
   } = useItemCard();
 
   return (
@@ -30,17 +30,33 @@ export const ItemCard = ({ item, position }: ItemCardProps) => {
         Assinado por {item.subscriber?.name}
       </S.ItemCardDescription>
       <button
-        disabled={validateActiveButton(hasSubscriber, signedByMe)}
-        onClick={() => {
-          handleAssingnItem(
-            list as IList,
-            position,
-            !signedByMe ? user : ({} as ISubscriber)
-          );
-        }}
+        disabled={validateActiveButton(hasSubscriber(item), signedByMe(item))}
+        onClick={() => setIsOpen(true)}
       >
-        {getButtonLabel(hasSubscriber, signedByMe)}
+        {getButtonLabel(hasSubscriber(item), signedByMe(item))}
       </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        // style={customStyles}
+        ariaHideApp={false}
+        contentLabel="Example Modal"
+      >
+        <input 
+          ref={code} 
+          type="text"
+          placeholder="Código de confirmação"
+          name="code"
+        />
+        <button
+          disabled={validateActiveButton(hasSubscriber(item), signedByMe(item))}
+          onClick={() => {
+            handleSubmit(list as IList, position, code?.current?.value as string)
+          }}
+        >
+          {getButtonLabel(hasSubscriber(item), signedByMe(item))}
+        </button>
+      </Modal>
     </S.ItemCardWrapper>
   );
 };
