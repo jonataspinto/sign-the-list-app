@@ -27,6 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint:css": "stylelint './src/**/*.styled.ts'",
+    "deploy:firebase": "firebase deploy --only hosting:sign-the-list",
+    "deploy": "yarn build && yarn deploy:firebase",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
