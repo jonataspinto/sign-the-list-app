@@ -28,7 +28,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "lint:css": "stylelint './src/**/*.styled.ts'",
+    "lint:css": "stylelint './src/**/*.css'",
     "deploy:firebase": "firebase deploy --only hosting:sign-the-list",
     "deploy": "yarn build && yarn deploy:firebase",
     "lint": "eslint src --max-warnings=0",
@@ -37,7 +37,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*": [
+    "src/**/*.tsx": [
       "yarn lint --fix"
     ]
   },

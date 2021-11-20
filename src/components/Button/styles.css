@@ -1,0 +1,15 @@
+.btn {
+  @apply flex w-36 justify-center px-4 py-1 rounded transition
+}
+
+.btn:disabled {
+  @apply bg-opacity-20 cursor-not-allowed
+}
+
+.primary {
+  @apply btn bg-pink-700 text-white hover:bg-pink-900
+}
+
+.secondary {
+  @apply btn bg-blue-700 text-white hover:bg-blue-900
+}
