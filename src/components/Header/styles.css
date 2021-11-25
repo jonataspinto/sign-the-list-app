@@ -1,0 +1,16 @@
+.header-container {
+  @apply sm:px-0 p-4
+
+}
+
+.header-container__user {
+  @apply flex gap-2 items-end
+}
+
+.header-container__user-avatar {
+  @apply rounded w-14 h-14
+}
+
+.header-container__user-datails {
+  @apply text-gray-500
+}
