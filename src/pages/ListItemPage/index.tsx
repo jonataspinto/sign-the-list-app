@@ -14,12 +14,11 @@ export const ListItemPage = () => {
   }, [params, loadList]);
 
   return (
-    <div className="pb-16">
-      {list?.name}
-      <p className="mb-4">{list?.email}</p>
+    <div className="flex flex-col pt-4 gap-4 pb-4">
+      <h2 className="text-3xl font-bold text-gray-900 px-4 sm:p-0">{list?.name}</h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {list?.items?.map((item, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+        {list?.items.map((item, index) => (
           <ItemCard key={uuid()} item={item} position={index} />
         ))}
       </div>
