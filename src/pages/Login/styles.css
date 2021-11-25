@@ -1,0 +1,3 @@
+.login-container {
+  @apply h-full md:grid grid-cols-3
+}
