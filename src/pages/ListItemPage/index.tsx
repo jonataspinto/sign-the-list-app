@@ -14,12 +14,12 @@ export const ListItemPage = () => {
   }, [params, loadList]);
 
   return (
-    <div>
+    <div className="pb-16">
       {list?.name}
-      <p>{list?.email}</p>
+      <p className="mb-4">{list?.email}</p>
 
-      <div>
-        {list?.items.map((item, index) => (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {list?.items?.map((item, index) => (
           <ItemCard key={uuid()} item={item} position={index} />
         ))}
       </div>

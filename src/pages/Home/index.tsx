@@ -24,7 +24,7 @@ export const Home = () => {
     <section className="flex flex-col pt-4 gap-4">
       <h1 className="text-3xl font-bold text-gray-900 px-4 sm:p-0">Listas disponíveis</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 ">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {data
         && keys.map((key) => (
           <div key={data[key].id} className="card">
@@ -33,6 +33,10 @@ export const Home = () => {
               src={data[key].photoURL}
               alt="Imagem Familia"
               className="avatar my-1"
+              onError={({ currentTarget }) => {
+                // eslint-disable-next-line no-param-reassign
+                currentTarget.src = "/user.png";
+              }}
             />
             <a
               target="_blank"
