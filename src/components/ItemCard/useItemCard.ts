@@ -7,7 +7,8 @@ export const useItemCard = () => {
   const { list, assingnItem } = useApp();
   const { user } = useAuth();
   const code = useRef<HTMLInputElement>(null);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const signedByMe = useCallback((item: IItem) => (
     user.email === item?.subscriber?.email
@@ -61,7 +62,8 @@ export const useItemCard = () => {
   }, [assingnItem]);
 
   const closeModal = useCallback(() => {
-    setIsOpen(false);
+    setModalIsOpen(false);
+    setShowDetails(false);
   }, []);
 
   const handleSubmit = useCallback((listData: IList, position: number, _code: string) => {
@@ -81,12 +83,14 @@ export const useItemCard = () => {
     list,
     code,
     modalIsOpen,
-    setIsOpen,
+    setModalIsOpen,
     signedByMe,
     hasSubscriber,
     validateActiveButton,
     getButtonLabel,
     closeModal,
     handleSubmit,
+    showDetails,
+    setShowDetails,
   };
 };
