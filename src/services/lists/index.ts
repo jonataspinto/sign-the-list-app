@@ -2,6 +2,7 @@ import {
   // updateDoc,
   addDoc,
   collection,
+  doc,
   getDoc,
   getDocs,
   query,
@@ -32,8 +33,8 @@ export async function getLists() {
   return users;
 }
 
-export async function getByOwner(ownerId: string) {
-  const list: ListCollection = [];
+export async function getListsByOwner(ownerId: string) {
+  const lists: ListCollection = [];
 
   const collectionQuery = query(
     collection(firestore, path),
@@ -45,13 +46,27 @@ export async function getByOwner(ownerId: string) {
   collectionSnapshot.forEach((snapshot) => {
     const data = snapshot.data();
 
-    list.push({
+    lists.push({
       ...(data as List),
       id: snapshot.id,
     });
   });
 
-  return list[0];
+  return lists;
+}
+
+export async function getListById(listId: string) {
+  const docRef = doc(firestore, path, listId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return {
+      ...(docSnap.data() as List),
+      id: docSnap.id,
+    };
+  } else {
+    throw new Error("Lista não encontrada");
+  }
 }
 
 export async function createList(payload: Omit<List, "id">) {

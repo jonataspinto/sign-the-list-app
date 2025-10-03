@@ -17,6 +17,12 @@ export function Navigation() {
           </Link>
         ) : (
           <>
+            <Link className="underline text-blue-600" to="/create-list">
+              Criar Lista
+            </Link>
+            <Link className="underline text-blue-600" to="/my-lists">
+              Minhas Listas
+            </Link>
             <Link className="underline text-blue-600" to="/profile">
               Perfil
             </Link>
