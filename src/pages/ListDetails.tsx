@@ -134,7 +134,7 @@ export function ListDetails() {
       {isOwner && (
         <div className="flex gap-2">
           <Button asChild>
-            <Link to={`/lists/${list.id}/add-item`}>
+            <Link to={`/my-lists/${list.id}/add-item`}>
               <Plus className="w-4 h-4 mr-2" />
               Adicionar Item
             </Link>
@@ -157,7 +157,7 @@ export function ListDetails() {
               </p>
               {isOwner && (
                 <Button asChild>
-                  <Link to={`/lists/${list.id}/add-item`}>
+                  <Link to={`/my-lists/${list.id}/add-item`}>
                     <Plus className="w-4 h-4 mr-2" />
                     Adicionar Primeiro Item
                   </Link>

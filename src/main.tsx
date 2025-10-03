@@ -1,4 +1,5 @@
 import {
+  AddItemPage,
   CreateListPage,
   Home,
   ListDetails,
@@ -57,6 +58,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ListDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-lists/:listId/add-item",
+        element: (
+          <ProtectedRoute>
+            <AddItemPage />
           </ProtectedRoute>
         ),
       },
