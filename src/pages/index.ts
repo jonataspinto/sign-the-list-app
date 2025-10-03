@@ -1,3 +1,3 @@
-export { Home } from "./Home";
-export { Login } from "./Login";
-export { ListItemPage } from "./ListItemPage";
+export * from "./Home";
+export * from "./Login";
+export * from "./Profile";

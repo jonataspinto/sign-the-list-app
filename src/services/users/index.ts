@@ -1,0 +1,81 @@
+import {
+  // updateDoc,
+  addDoc,
+  collection,
+  getDoc,
+  getDocs,
+  query,
+  serverTimestamp,
+  // doc,
+  where,
+} from "firebase/firestore";
+import { firestore } from "../firebase/client";
+
+export async function getUsers() {
+  const users: UserCollection = [];
+
+  const collectionQuery = query(collection(firestore, `/users`));
+
+  const collectionSnapshot = await getDocs(collectionQuery);
+
+  collectionSnapshot.forEach((snapshot) => {
+    const data = snapshot.data();
+
+    users.push({
+      ...(data as User),
+      id: snapshot.id,
+      createdAt: data?.createdAt?.toDate?.(),
+      updatedAt: data?.updatedAt?.toDate?.(),
+    });
+  });
+
+  return users;
+}
+
+export async function getByEmail(email: string) {
+  const list: UserCollection = [];
+
+  const collectionQuery = query(
+    collection(firestore, `/users`),
+    where(`email`, "==", email)
+  );
+
+  const collectionSnapshot = await getDocs(collectionQuery);
+
+  collectionSnapshot.forEach((snapshot) => {
+    const data = snapshot.data();
+
+    list.push({
+      ...(data as User),
+      id: snapshot.id,
+      createdAt: data?.createdAt?.toDate?.(),
+      updatedAt: data?.updatedAt?.toDate?.(),
+    });
+  });
+
+  return list[0];
+}
+
+export async function createUser(payload: {
+  name: string;
+  email: string;
+  photoURL: string;
+  plan?: Plan;
+}) {
+  const userExist = await getByEmail(payload.email);
+
+  if (userExist) {
+    return userExist;
+  }
+
+  const newData = await addDoc(collection(firestore, `/users`), {
+    plan: "free",
+    ...payload,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+
+  const response = await getDoc(newData);
+
+  return response.data() as User;
+}
