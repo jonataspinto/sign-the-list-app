@@ -3,7 +3,13 @@ import { getItemsByListIdObserver } from "@/services/lists/items";
 import { useEffect, useState } from "react";
 import { Item } from "./Item";
 
-export function List({ listId }: { listId: string }) {
+export function List({
+  listId,
+  emptyStateMessage,
+}: {
+  listId: string;
+  emptyStateMessage?: React.ReactNode;
+}) {
   const [items, setItems] = useState<Record<string, Item>>({});
   const isEmpty = Object.values(items)?.length === 0;
   const claimedItems =
@@ -30,7 +36,9 @@ export function List({ listId }: { listId: string }) {
     return (
       <Card>
         <CardContent className="text-center py-8">
-          <p className="text-gray-600">Esta lista ainda não possui itens.</p>
+          {emptyStateMessage || (
+            <p className="text-gray-600">Esta lista ainda não possui itens.</p>
+          )}
         </CardContent>
       </Card>
     );
