@@ -11,6 +11,9 @@ export function Navigation() {
         <Link className="underline text-blue-600" to="/">
           Home
         </Link>
+        <Link className="underline text-blue-600" to="/view-list">
+          Ver Lista
+        </Link>
         {!isAuthenticated ? (
           <Link className="underline text-blue-600" to="/login">
             Login

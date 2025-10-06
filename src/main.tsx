@@ -5,6 +5,7 @@ import {
   ListDetails,
   LoginPage,
   ProfilePage,
+  ViewListByCode,
 } from "@/pages";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
             <AddItemPage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "view-list",
+        element: <ViewListByCode />,
       },
     ],
   },
