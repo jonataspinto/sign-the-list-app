@@ -44,7 +44,6 @@ export function CreateListForm() {
         description: data.description,
         eventDate: data.eventDate,
         shareCode,
-        items: [],
       });
 
       toast.success("Lista criada com sucesso!");

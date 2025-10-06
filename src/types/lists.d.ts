@@ -1,10 +1,12 @@
 type Item = {
+  id?: string;
   name: string;
   description: string;
   imageUrl: string;
   storeUrl: string;
   claimedBy: string;
   claimedAt: string;
+  claimantProfile?: User;
 };
 
 type List = {
@@ -14,5 +16,5 @@ type List = {
   description: string;
   eventDate: string;
   shareCode: string;
-  items: Array<Item>;
+  items: Record<"string", Item>;
 };
