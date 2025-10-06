@@ -36,7 +36,7 @@ export function MyLists() {
 
       <div className="grid grid-cols-3 gap-4">
         {lists?.map((list) => (
-          <Card>
+          <Card key={list.id}>
             <CardHeader>
               <CardTitle>{list.title}</CardTitle>
               <CardDescription>{list.description}</CardDescription>
