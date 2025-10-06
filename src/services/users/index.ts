@@ -1,20 +1,21 @@
 import {
-  // updateDoc,
   addDoc,
   collection,
+  doc,
   getDoc,
   getDocs,
   query,
   serverTimestamp,
-  // doc,
   where,
 } from "firebase/firestore";
 import { firestore } from "../firebase/client";
 
+const path = "/users";
+
 export async function getUsers() {
   const users: UserCollection = [];
 
-  const collectionQuery = query(collection(firestore, `/users`));
+  const collectionQuery = query(collection(firestore, path));
 
   const collectionSnapshot = await getDocs(collectionQuery);
 
@@ -36,7 +37,7 @@ export async function getByEmail(email: string) {
   const list: UserCollection = [];
 
   const collectionQuery = query(
-    collection(firestore, `/users`),
+    collection(firestore, path),
     where(`email`, "==", email)
   );
 
@@ -56,6 +57,17 @@ export async function getByEmail(email: string) {
   return list[0];
 }
 
+export async function getById(id: string) {
+  const docRef = doc(firestore, path, id);
+  const docSnap = await getDoc(docRef);
+  const data = docSnap.data() as User;
+
+  return {
+    ...data,
+    id: docSnap.id,
+  };
+}
+
 export async function createUser(payload: {
   name: string;
   email: string;
@@ -68,7 +80,7 @@ export async function createUser(payload: {
     return userExist;
   }
 
-  const newData = await addDoc(collection(firestore, `/users`), {
+  const newData = await addDoc(collection(firestore, path), {
     plan: "free",
     ...payload,
     createdAt: serverTimestamp(),
