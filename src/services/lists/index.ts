@@ -54,11 +54,15 @@ export function gitListByIdObserver({
   callback,
 }: {
   listId: string;
-  callback?: (data: List) => void;
+  callback: (data?: List) => void;
 }) {
   const docRef = doc(firestore, path, listId);
 
   const unsubscribe = onSnapshot(docRef, async (snapshot) => {
+    if (!snapshot.exists()) {
+      return callback();
+    }
+
     const data = snapshot.data() as List;
 
     const items = await getItemsByListId({
@@ -66,7 +70,7 @@ export function gitListByIdObserver({
       rootPath: path,
     });
 
-    callback?.({ ...data, items });
+    callback({ ...data, id: snapshot.id, items });
   });
 
   return unsubscribe;
