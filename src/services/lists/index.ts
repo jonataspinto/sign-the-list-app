@@ -55,6 +55,8 @@ export function observeListsByOwner(
         });
       });
       callback?.(data);
+    } else {
+      callback?.([]);
     }
   });
 
