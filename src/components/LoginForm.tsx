@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 
 import { cn } from "@/lib/utils";
 import { loginWithEmail, loginWithGoogle } from "@/services/firebase";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.email(),
@@ -57,7 +58,7 @@ export function LoginForm({
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Entre com seu email e senha para continuar
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -78,12 +79,12 @@ export function LoginForm({
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">Senha</Label>
                   <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
-                    Forgot your password?
+                    Esqueceu sua senha?
                   </a>
                 </div>
                 <Input
@@ -96,12 +97,12 @@ export function LoginForm({
                   }
                 />
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full cursor-pointer">
                 {isPending ? <Loader2Icon className="animate-spin" /> : "Login"}
               </Button>
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full cursor-pointer"
                 type="button"
                 onClick={loginWithGoogle}
               >
@@ -109,10 +110,10 @@ export function LoginForm({
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
+              Não tem uma conta?{" "}
+              <Link to="/signup" className="underline underline-offset-4">
+                Cadastre-se
+              </Link>
             </div>
           </form>
         </CardContent>
