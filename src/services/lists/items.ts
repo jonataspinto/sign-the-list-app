@@ -98,7 +98,7 @@ export async function deleteItems({ listId }: { listId: string }) {
   await batch.commit();
 }
 
-export function getItemsByListIdObserver(
+export function observeListItems(
   {
     listId,
   }: {

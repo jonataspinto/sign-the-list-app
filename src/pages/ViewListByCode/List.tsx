@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { getItemsByListIdObserver } from "@/services/lists/items";
+import { observeListItems } from "@/services/lists/items";
 import { useEffect, useState } from "react";
 import { Item } from "./Item";
 
@@ -18,7 +18,7 @@ export function List({
     Object.values(items ?? {}).filter((item) => !item.claimedBy) || [];
 
   useEffect(() => {
-    const unsubscribe = getItemsByListIdObserver(
+    const unsubscribe = observeListItems(
       {
         listId,
       },
