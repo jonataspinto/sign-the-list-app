@@ -13,7 +13,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Layout } from "./components/Layout.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import "./index.css";
-import { MyLists } from "./pages/MyLists.tsx";
+import { MyLists } from "./pages/MyLists/index.tsx";
 import { SessionProvider } from "./providers/session";
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
 
