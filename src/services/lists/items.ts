@@ -1,15 +1,45 @@
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   onSnapshot,
   query,
+  serverTimestamp,
+  updateDoc,
   writeBatch,
 } from "firebase/firestore";
 import { firestore } from "../firebase/client";
 
 const rootPath = "/lists";
+
+export async function addItemToList(
+  listId: string,
+  item: Omit<Item, "claimedBy" | "claimedAt">
+) {
+  const listRef = doc(firestore, rootPath, listId);
+  const listDoc = await getDoc(listRef);
+
+  if (!listDoc.exists()) {
+    throw new Error("Lista não encontrada");
+  }
+
+  await addDoc(collection(firestore, `${rootPath}/${listId}/items`), {
+    ...item,
+    claimedBy: "",
+    claimedAt: "",
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+
+  const response = await updateDoc(listRef, {
+    updatedAt: serverTimestamp(),
+  });
+
+  return response;
+}
 
 export async function getItemsByListId({
   listId,

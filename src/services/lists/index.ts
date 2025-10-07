@@ -125,32 +125,6 @@ export async function getListByShareCode(shareCode: string) {
   };
 }
 
-export async function addItemToList( // TODO: move to items service file
-  listId: string,
-  item: Omit<Item, "claimedBy" | "claimedAt">
-) {
-  const listRef = doc(firestore, path, listId);
-  const listDoc = await getDoc(listRef);
-
-  if (!listDoc.exists()) {
-    throw new Error("Lista não encontrada");
-  }
-
-  await addDoc(collection(firestore, `${path}/${listId}/items`), {
-    ...item,
-    claimedBy: "",
-    claimedAt: "",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-
-  const response = await updateDoc(listRef, {
-    updatedAt: serverTimestamp(),
-  });
-
-  return response;
-}
-
 export async function claimItem({
   claimedBy,
   itemId,
