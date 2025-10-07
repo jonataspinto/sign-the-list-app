@@ -1,5 +1,5 @@
 import { SessionContext } from "@/providers/session/context";
-import { getListsByOwner } from "@/services/lists";
+import { observeListsByOwner } from "@/services/lists";
 import { use, useEffect, useState } from "react";
 import { MyListItem, MyListItemSkeleton } from "./MyListItem";
 
@@ -10,18 +10,14 @@ export function MyLists() {
   const { user } = use(SessionContext);
 
   useEffect(() => {
-    (async () => {
-      if (user) {
-        try {
-          const response = await getListsByOwner(user?.id);
-          setLists(response);
-        } catch (error) {
-          console.error(error);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    })();
+    const unsubscribe = observeListsByOwner(user?.id, (data) => {
+      setLists(data);
+      setIsLoading(false);
+    });
+
+    return () => {
+      unsubscribe();
+    };
   }, [user]);
 
   return (

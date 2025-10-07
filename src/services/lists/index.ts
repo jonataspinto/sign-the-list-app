@@ -29,30 +29,39 @@ export async function createList(payload: Omit<List, "id" | "items">) {
   return response.data() as List;
 }
 
-export async function getListsByOwner(ownerId: string) {
-  // TODO: onSnapshot version
-  const lists: ListCollection = [];
+export function observeListsByOwner(
+  ownerId?: string,
+  callback?: (data: ListCollection) => void
+) {
+  if (!ownerId) {
+    return () => {};
+  }
 
   const collectionQuery = query(
     collection(firestore, path),
     where(`ownerId`, "==", ownerId)
   );
 
-  const collectionSnapshot = await getDocs(collectionQuery);
+  const unsubscribe = onSnapshot(collectionQuery, (snapshot) => {
+    if (snapshot.size) {
+      const data: ListCollection = [];
 
-  collectionSnapshot.forEach((snapshot) => {
-    const data = snapshot.data();
+      snapshot.docs.forEach((doc) => {
+        const values = doc.data() as List;
 
-    lists.push({
-      ...(data as List),
-      id: snapshot.id,
-    });
+        data.push({
+          ...values,
+          id: doc.id,
+        });
+      });
+      callback?.(data);
+    }
   });
 
-  return lists;
+  return unsubscribe;
 }
 
-export function gitListByIdObserver({
+export function observeList({
   listId,
   callback,
 }: {

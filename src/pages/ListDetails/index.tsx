@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SessionContext } from "@/providers/session/context";
-import { gitListByIdObserver } from "@/services/lists";
+import { observeList } from "@/services/lists";
 import { ArrowLeft } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ export function ListDetails() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = gitListByIdObserver({
+    const unsubscribe = observeList({
       listId: listId!,
       callback: (data) => {
         setList(data || null);
