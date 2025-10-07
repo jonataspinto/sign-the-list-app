@@ -1,6 +1,8 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -11,7 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 import { firestore } from "../firebase/client";
-import { getItemsByListId } from "./items";
+import { deleteItems, getItemsByListId } from "./items";
 
 const path = "/lists";
 
@@ -28,6 +30,7 @@ export async function createList(payload: Omit<List, "id" | "items">) {
 }
 
 export async function getListsByOwner(ownerId: string) {
+  // TODO: onSnapshot version
   const lists: ListCollection = [];
 
   const collectionQuery = query(
@@ -122,7 +125,7 @@ export async function getListByShareCode(shareCode: string) {
   };
 }
 
-export async function addItemToList(
+export async function addItemToList( // TODO: move to items service file
   listId: string,
   item: Omit<Item, "claimedBy" | "claimedAt">
 ) {
@@ -186,4 +189,16 @@ export async function unclaimItem({
   const response = await getListById(listId);
 
   return response;
+}
+
+export async function deleteList(listId: string) {
+  const docRef = doc(firestore, path, listId);
+
+  await deleteItems({ listId });
+
+  await updateDoc(docRef, {
+    items: deleteField(),
+  });
+
+  await deleteDoc(docRef);
 }

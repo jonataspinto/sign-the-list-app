@@ -14,6 +14,7 @@ import { Check, ExternalLink, Loader2, X } from "lucide-react";
 import { use, useTransition } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { DeleteItemDialog } from "./DeleteItemDialog";
 
 export function Item({ listId, item }: { listId: string; item: Item }) {
   const { user, isAuthenticated } = use(SessionContext);
@@ -57,10 +58,11 @@ export function Item({ listId, item }: { listId: string; item: Item }) {
     <Card
       key={item.name}
       className={cn([
-        "border-green-200 pt-0 gap-2",
+        "border-green-200 pt-0 gap-2 relative",
         !isClaiming && item.claimedBy && "border-orange-200 bg-orange-50",
       ])}
     >
+      <DeleteItemDialog itemId={item.id!} listId={listId} />
       <div className="w-full aspect-square relative rounded-t-xl overflow-hidden mb-4">
         <img
           src={item.imageUrl || "/placeholder.svg"}
