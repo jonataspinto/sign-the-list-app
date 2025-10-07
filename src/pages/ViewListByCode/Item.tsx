@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { SessionContext } from "@/providers/session/context";
-import { claimItem, unclaimItem } from "@/services/lists";
+import { claimItem, unclaimItem } from "@/services/lists/items";
 import { Check, ExternalLink, Loader2, X } from "lucide-react";
 import { use, useTransition } from "react";
 import { Link } from "react-router-dom";

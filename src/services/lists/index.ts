@@ -134,46 +134,6 @@ export async function getListByShareCode(shareCode: string) {
   };
 }
 
-export async function claimItem({
-  claimedBy,
-  itemId,
-  listId,
-}: {
-  listId: string;
-  itemId: string;
-  claimedBy: string;
-}) {
-  const itemRef = doc(firestore, `${path}/${listId}/items`, itemId);
-
-  await updateDoc(itemRef, {
-    claimedBy,
-    claimedAt: serverTimestamp(),
-  });
-
-  const response = await getListById(listId);
-
-  return response;
-}
-
-export async function unclaimItem({
-  itemId,
-  listId,
-}: {
-  listId: string;
-  itemId: string;
-}) {
-  const itemRef = doc(firestore, `${path}/${listId}/items`, itemId);
-
-  await updateDoc(itemRef, {
-    claimedBy: "",
-    claimedAt: "",
-  });
-
-  const response = await getListById(listId);
-
-  return response;
-}
-
 export async function deleteList(listId: string) {
   const docRef = doc(firestore, path, listId);
 

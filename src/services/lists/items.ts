@@ -128,3 +128,43 @@ export function observeListItems(
 
   return unsubscribe;
 }
+
+export async function claimItem({
+  claimedBy,
+  itemId,
+  listId,
+}: {
+  listId: string;
+  itemId: string;
+  claimedBy: string;
+}) {
+  const itemRef = doc(firestore, `${rootPath}/${listId}/items`, itemId);
+
+  await updateDoc(itemRef, {
+    claimedBy,
+    claimedAt: serverTimestamp(),
+  });
+
+  // const response = await getListById(listId);
+
+  // return response;
+}
+
+export async function unclaimItem({
+  itemId,
+  listId,
+}: {
+  listId: string;
+  itemId: string;
+}) {
+  const itemRef = doc(firestore, `${rootPath}/${listId}/items`, itemId);
+
+  await updateDoc(itemRef, {
+    claimedBy: "",
+    claimedAt: "",
+  });
+
+  // const response = await getListById(listId);
+
+  // return response;
+}
