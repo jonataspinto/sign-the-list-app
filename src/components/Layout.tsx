@@ -1,13 +1,34 @@
-import { Outlet } from "react-router-dom";
+import { SessionContext } from "@/providers/session/context";
+import { use } from "react";
+import { Link, Outlet } from "react-router-dom";
 import { Navigation } from "./Navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Skeleton } from "./ui/skeleton";
 
 export function Layout() {
+  const { user, isLoading } = use(SessionContext);
+
+  const [firstName, lastName] = (user?.name || "u n").split(" ");
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="p-4 shadow-md">
         <div className="container flex items-center justify-between mx-auto">
-          <h1 className="text-2xl font-bold">List</h1>
           <Navigation />
+
+          {isLoading ? (
+            <Skeleton className="size-10 rounded-full" />
+          ) : (
+            <Link to="/profile" aria-label="Profile">
+              <Avatar>
+                <AvatarImage src={user?.photoURL} />
+                <AvatarFallback className="uppercase">
+                  {firstName.charAt(0)}
+                  {lastName.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+            </Link>
+          )}
         </div>
       </header>
 

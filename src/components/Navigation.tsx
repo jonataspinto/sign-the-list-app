@@ -3,7 +3,7 @@ import { use } from "react";
 import { Link } from "react-router-dom";
 
 export function Navigation() {
-  const { user, isAuthenticated } = use(SessionContext);
+  const { isAuthenticated } = use(SessionContext);
 
   return (
     <nav className="flex items-center gap-4 text-sm">
@@ -26,10 +26,6 @@ export function Navigation() {
             <Link className="underline text-blue-600" to="/my-lists">
               Minhas Listas
             </Link>
-            <Link className="underline text-blue-600" to="/profile">
-              Perfil
-            </Link>
-            {user && <span className="text-gray-600">Olá, {user.name}</span>}
           </>
         )}
       </div>
