@@ -1,6 +1,6 @@
 import { SessionContext } from "@/providers/session/context";
 import { use, type ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 type Props = {
   children: ReactNode;
@@ -8,6 +8,8 @@ type Props = {
 
 export default function ProtectedRoute({ children }: Props) {
   const { isLoading, isAuthenticated } = use(SessionContext);
+
+  const locationState = useLocation();
 
   if (isLoading) {
     return (
@@ -18,7 +20,9 @@ export default function ProtectedRoute({ children }: Props) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return (
+      <Navigate to={`/login?redirect=${locationState.pathname}`} replace />
+    );
   }
 
   return <>{children}</>;

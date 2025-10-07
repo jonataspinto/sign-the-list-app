@@ -1,17 +1,20 @@
 import { LoginForm } from "@/components/LoginForm";
 import { SessionContext } from "@/providers/session/context";
 import { use, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const navigate = useNavigate();
   const { isLoading, isAuthenticated } = use(SessionContext);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const redirectPath = searchParams.get("redirect") || "/profile";
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      navigate("/profile", { replace: true });
+      navigate(redirectPath, { replace: true });
     }
-  }, [isLoading, isAuthenticated, navigate]);
+  }, [isLoading, isAuthenticated, navigate, redirectPath]);
 
   if (isLoading) {
     return (
