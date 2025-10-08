@@ -1,6 +1,7 @@
 import {
   AddItemPage,
   CreateListPage,
+  EditListPage,
   Home,
   ListDetails,
   LoginPage,
@@ -13,6 +14,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Layout } from "./components/Layout.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import "./index.css";
+
 import { MyLists } from "./pages/MyLists/index.tsx";
 import { SessionProvider } from "./providers/session";
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <AddItemPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-lists/:listId/edit",
+        element: (
+          <ProtectedRoute>
+            <EditListPage />
           </ProtectedRoute>
         ),
       },

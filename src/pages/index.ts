@@ -3,5 +3,7 @@ export * from "./CreateList";
 export * from "./Home";
 export * from "./ListDetails";
 export * from "./Login";
+export * from "./MyLists";
+export * from "./MyLists/EditListPage";
 export * from "./Profile";
 export * from "./ViewListByCode";

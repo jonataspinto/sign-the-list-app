@@ -89,7 +89,7 @@ export function ListInfo({
               </Link>
             </Button>
             <Button variant="outline" asChild size="sm">
-              <Link to={`/lists/${list?.id}/edit`}>
+              <Link to={`/my-lists/${list?.id}/edit`}>
                 <Pencil className="w-4 h-4 mr-2" />
                 Editar Lista
               </Link>
