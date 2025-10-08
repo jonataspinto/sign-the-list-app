@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon, Search } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import z from "zod";
 import { List } from "./List";
@@ -26,6 +27,9 @@ const formSchema = z.object({
 
 export function ViewListByCode() {
   const [list, setList] = useState<List | null>(null);
+  const [searchParams] = useSearchParams();
+
+  const code = searchParams.get("shareCode") ?? "";
 
   const {
     register,
@@ -34,6 +38,7 @@ export function ViewListByCode() {
     watch,
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    values: { shareCode: code.toUpperCase() },
   });
 
   const shareCode = watch("shareCode");
