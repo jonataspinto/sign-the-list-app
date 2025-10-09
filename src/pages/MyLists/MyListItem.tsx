@@ -27,7 +27,7 @@ export function MyListItem({ list }: { list: List }) {
           <Calendar className="size-4" />
           <p>
             {Intl.DateTimeFormat("pt-BR", {
-              dateStyle: "full",
+              dateStyle: "medium",
             }).format(new Date(list.eventDate))}
           </p>
         </div>
@@ -37,7 +37,7 @@ export function MyListItem({ list }: { list: List }) {
         </div>
       </CardContent>
 
-      <CardFooter className="flex-col gap-2">
+      <CardFooter className="flex-col gap-2 mt-auto mb-0">
         <Button type="button" className="w-full" asChild>
           <Link to={`/my-lists/${list.id}`}>Ver Lista</Link>
         </Button>
