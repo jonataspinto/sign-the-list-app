@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SessionContext } from "@/providers/session/context";
 import { createList } from "@/services/lists";
+import { Loader2Icon } from "lucide-react";
 import { use } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -121,7 +122,11 @@ export function CreateListForm() {
         </div>
 
         <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Criando..." : "Criar Lista"}
+          {isSubmitting ? (
+            <Loader2Icon className="animate-spin" />
+          ) : (
+            "Criar Lista"
+          )}
         </Button>
       </form>
     </div>
