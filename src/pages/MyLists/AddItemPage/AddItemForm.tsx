@@ -102,7 +102,7 @@ export function AddItemForm() {
             <Button variant="outline" size="sm" className="w-fit" asChild>
               <Link to={`/my-lists/${listId}`}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar para Lista
+                Voltar
               </Link>
             </Button>
             <div>

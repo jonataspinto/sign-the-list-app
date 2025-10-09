@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { getListById, updateList } from "@/services/lists";
 import { ArrowLeft, Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 export function EditListPage() {
@@ -60,20 +60,19 @@ export function EditListPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-xl mx-auto">
-      <div className="flex flex-col gap-4">
-        <Button variant="outline" size="sm" className="w-fit" asChild>
-          <Link to={`/my-lists/${listId}`}>
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Voltar
-          </Link>
-        </Button>
-        <div>
-          <h1 className="text-3xl font-bold">Editar lista</h1>
-        </div>
-      </div>
+    <div className="space-y-6 ">
+      <Button
+        variant="outline"
+        size="sm"
+        className="w-fit"
+        onClick={() => navigate(-1)}
+      >
+        <ArrowLeft className="w-4 h-4 mr-2" />
+        Voltar
+      </Button>
 
-      <div className="">
+      <div className="max-w-xl mx-auto space-y-6">
+        <h1 className="text-3xl font-bold">Editar lista</h1>
         <Card>
           <CardContent>
             <form className="space-y-4" onSubmit={handleSubmit}>
