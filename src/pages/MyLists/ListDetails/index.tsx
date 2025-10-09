@@ -5,8 +5,8 @@ import { observeList } from "@/services/lists";
 import { ArrowLeft } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { List } from "../ViewListByCode/List";
-import { ListInfo } from "../ViewListByCode/ListInfo";
+import { List } from "../../ViewListByCode/List";
+import { ListInfo } from "../../ViewListByCode/ListInfo";
 
 export function ListDetails() {
   const { listId } = useParams<{ listId: string }>();
@@ -71,7 +71,7 @@ export function ListDetails() {
       {list && !isLoading && (
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">Itens da Lista</h2>
-          <List listId={listId!} />
+          <List list={list} />
         </div>
       )}
     </div>

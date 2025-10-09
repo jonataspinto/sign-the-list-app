@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { Item } from "./Item";
 
 export function List({
-  listId,
+  list,
   emptyStateMessage,
 }: {
-  listId: string;
+  list: List;
   emptyStateMessage?: React.ReactNode;
 }) {
   const [items, setItems] = useState<Record<string, Item>>({});
@@ -16,6 +16,7 @@ export function List({
     Object.values(items ?? {}).filter((item) => item.claimedBy) || [];
   const availableItems =
     Object.values(items ?? {}).filter((item) => !item.claimedBy) || [];
+  const listId = list.id;
 
   useEffect(() => {
     const unsubscribe = observeListItems(
@@ -67,7 +68,12 @@ export function List({
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {Object.values(items)?.map((item) => (
-          <Item key={item.id} item={item} listId={listId} />
+          <Item
+            key={item.id}
+            item={item}
+            listId={listId}
+            ownerId={list.ownerId}
+          />
         ))}
       </div>
     </>

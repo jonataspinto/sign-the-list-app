@@ -115,7 +115,7 @@ export function ViewListByCode() {
         {!isSubmitting && list && (
           <div className="space-y-4">
             <h2 className="text-2xl font-semibold">Itens da Lista</h2>
-            <List listId={list.id}></List>
+            <List list={list} />
           </div>
         )}
       </>

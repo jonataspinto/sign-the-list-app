@@ -16,10 +16,19 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { DeleteItemDialog } from "./DeleteItemDialog";
 
-export function Item({ listId, item }: { listId: string; item: Item }) {
+export function Item({
+  listId,
+  item,
+  ownerId,
+}: {
+  listId: string;
+  item: Item;
+  ownerId: string;
+}) {
   const { user, isAuthenticated } = use(SessionContext);
   const [isClaiming, startClaimingTransition] = useTransition();
   const [isUnClaiming, startUnClaimingTransition] = useTransition();
+  const isOwner = user?.id === ownerId;
 
   const onClaimItem = async (itemId: string) => {
     if (!item || !user) return;
@@ -62,7 +71,11 @@ export function Item({ listId, item }: { listId: string; item: Item }) {
         !isClaiming && item.claimedBy && "border-orange-200 bg-orange-50",
       ])}
     >
-      <DeleteItemDialog itemId={item.id!} listId={listId} />
+      {isOwner && (
+        <>
+          <DeleteItemDialog itemId={item.id!} listId={listId} />
+        </>
+      )}
       <div className="w-full aspect-square rounded-t-xl overflow-hidden mb-4">
         <img
           src={item.imageUrl || "/placeholder.svg"}
