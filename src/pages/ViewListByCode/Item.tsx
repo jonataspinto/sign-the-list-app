@@ -63,7 +63,7 @@ export function Item({ listId, item }: { listId: string; item: Item }) {
       ])}
     >
       <DeleteItemDialog itemId={item.id!} listId={listId} />
-      <div className="w-full aspect-square relative rounded-t-xl overflow-hidden mb-4">
+      <div className="w-full aspect-square rounded-t-xl overflow-hidden mb-4">
         <img
           src={item.imageUrl || "/placeholder.svg"}
           alt={item.name}
@@ -73,16 +73,14 @@ export function Item({ listId, item }: { listId: string; item: Item }) {
           }}
         />
       </div>
-      <CardHeader>
-        <CardTitle className="uppercase">{item.name}</CardTitle>
-        <CardDescription>{item.description}</CardDescription>
+      <CardHeader className="break-all">
+        <CardTitle className="uppercase line-clamp-1">{item.name}</CardTitle>
+        <CardDescription className="break-all line-clamp-3">
+          {item.description}
+        </CardDescription>
       </CardHeader>
 
       <CardContent>
-        {/* <p className="text-sm text-orange-700">
-          {item.claimedBy && `Reservado por: ${item?.claimantProfile?.name}`}
-        </p> */}
-
         {item?.storeUrl && (
           <Link
             to={item.storeUrl}
