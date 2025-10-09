@@ -147,3 +147,14 @@ export async function deleteList(listId: string) {
 
   await deleteDoc(docRef);
 }
+
+export async function updateList(listId: string, payload: Partial<List>) {
+  const docRef = doc(firestore, path, listId);
+
+  const response = await updateDoc(docRef, {
+    ...payload,
+    updatedAt: serverTimestamp(),
+  });
+
+  return response;
+}
