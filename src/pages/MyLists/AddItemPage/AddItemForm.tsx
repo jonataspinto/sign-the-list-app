@@ -2,13 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import { getListById } from "@/services/lists";
 import { addItemToList } from "@/services/lists/items";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft, ExternalLink, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../../components/ui/card";
 
 type AddItemFormData = {
   name: string;
@@ -23,12 +31,14 @@ export function AddItemForm() {
   const [list, setList] = useState<List | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const form = useForm<AddItemFormData>();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<AddItemFormData>();
+  } = form;
 
   useEffect(() => {
     const fetchList = async () => {
@@ -91,7 +101,7 @@ export function AddItemForm() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col space-y-6 ">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <Button variant="outline" size="sm" className="w-fit" asChild>
@@ -112,7 +122,9 @@ export function AddItemForm() {
       <div className="w-full max-w-md">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <Label htmlFor="name">Nome do Item</Label>
+            <Label htmlFor="name" className="mb-2">
+              Nome do Item
+            </Label>
             <Input
               id="name"
               {...register("name", {
@@ -130,7 +142,9 @@ export function AddItemForm() {
           </div>
 
           <div>
-            <Label htmlFor="description">Descrição</Label>
+            <Label htmlFor="description" className="mb-2">
+              Descrição
+            </Label>
             <Textarea
               id="description"
               {...register("description", {
@@ -151,7 +165,9 @@ export function AddItemForm() {
           </div>
 
           <div>
-            <Label htmlFor="imageUrl">URL da Imagem (opcional)</Label>
+            <Label htmlFor="imageUrl" className="mb-2">
+              URL da Imagem (opcional)
+            </Label>
             <Input
               id="imageUrl"
               type="url"
@@ -171,7 +187,9 @@ export function AddItemForm() {
           </div>
 
           <div>
-            <Label htmlFor="storeUrl">URL da Loja (opcional)</Label>
+            <Label htmlFor="storeUrl" className="mb-2">
+              URL da Loja (opcional)
+            </Label>
             <Input
               id="storeUrl"
               type="url"
@@ -215,6 +233,35 @@ export function AddItemForm() {
             O item aparecerá assim na lista após ser adicionado.
           </p>
         </div>
+
+        <Card className={cn(["border-green-200 pt-0 gap-2 relative"])}>
+          <div className="w-full aspect-square relative rounded-t-xl overflow-hidden mb-4">
+            <img
+              src={form.watch("imageUrl") || "/placeholder.svg"}
+              alt={form.watch("name") || "Imagem do item"}
+              className="object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "/placeholder.svg";
+              }}
+            />
+          </div>
+          <CardHeader>
+            <CardTitle className="uppercase">{form.watch("name")}</CardTitle>
+            <CardDescription>{form.watch("description")}</CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <Link
+              to={form.watch("storeUrl")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800"
+            >
+              <ExternalLink className="size-4 mr-1" />
+              Ver na loja
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
