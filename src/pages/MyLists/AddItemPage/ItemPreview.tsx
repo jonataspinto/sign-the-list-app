@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../components/ui/card";
-import type { AddItemFormData } from "./AddItemForm";
+import type { AddItemFormData } from "./useAddItemPage";
 
 export function ItemPreview() {
   const form = useFormContext<AddItemFormData>();
@@ -21,11 +21,10 @@ export function ItemPreview() {
   const shouldShowPreview = name || description;
 
   return (
-    <div className="">
-      <h3 className="text-lg font-medium mb-3 w-full">Preview do Item</h3>
+    <>
       {!shouldShowPreview && (
-        <div className="border rounded-lg p-4 bg-gray-50">
-          <p className="text-sm text-gray-600">
+        <div className="border rounded-lg p-4 bg-gray-50 h-full flex items-center justify-center">
+          <p className="text-sm text-gray-600 w-fit">
             O item aparecerá assim na lista após ser adicionado.
           </p>
         </div>
@@ -63,6 +62,6 @@ export function ItemPreview() {
           </CardContent>
         </Card>
       )}
-    </div>
+    </>
   );
 }
