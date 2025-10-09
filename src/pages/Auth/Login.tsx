@@ -1,4 +1,4 @@
-import { LoginForm } from "@/components/LoginForm";
+import { LoginForm } from "@/pages/Auth/LoginForm";
 import { SessionContext } from "@/providers/session/context";
 import { use, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

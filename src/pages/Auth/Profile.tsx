@@ -1,6 +1,6 @@
 import { SessionContext } from "@/providers/session/context";
 import { use } from "react";
-import { logout } from "../services/firebase";
+import { logout } from "../../services/firebase";
 
 export function ProfilePage() {
   const { user, isLoading } = use(SessionContext);
