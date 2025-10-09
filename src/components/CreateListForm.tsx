@@ -60,7 +60,9 @@ export function CreateListForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <Label htmlFor="title">Título da Lista</Label>
+          <Label htmlFor="title" className="mb-2">
+            Título da Lista
+          </Label>
           <Input
             id="title"
             {...register("title", {
@@ -78,7 +80,9 @@ export function CreateListForm() {
         </div>
 
         <div>
-          <Label htmlFor="description">Descrição</Label>
+          <Label htmlFor="description" className="mb-2">
+            Descrição
+          </Label>
           <Textarea
             id="description"
             {...register("description", {
@@ -99,7 +103,9 @@ export function CreateListForm() {
         </div>
 
         <div>
-          <Label htmlFor="eventDate">Data do Evento</Label>
+          <Label htmlFor="eventDate" className="mb-2">
+            Data do Evento
+          </Label>
           <Input
             id="eventDate"
             type="date"
