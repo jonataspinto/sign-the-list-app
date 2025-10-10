@@ -15,6 +15,7 @@ import { use, useTransition } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { DeleteItemDialog } from "./DeleteItemDialog";
+import { EditItemDialog } from "./EditItemDialog";
 
 export function Item({
   listId,
@@ -74,6 +75,7 @@ export function Item({
       {isOwner && (
         <>
           <DeleteItemDialog itemId={item.id!} listId={listId} />
+          <EditItemDialog item={item} listId={listId} />
         </>
       )}
       <div className="w-full aspect-square rounded-t-xl overflow-hidden mb-4">

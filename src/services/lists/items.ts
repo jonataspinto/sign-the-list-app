@@ -144,10 +144,6 @@ export async function claimItem({
     claimedBy,
     claimedAt: serverTimestamp(),
   });
-
-  // const response = await getListById(listId);
-
-  // return response;
 }
 
 export async function unclaimItem({
@@ -163,8 +159,21 @@ export async function unclaimItem({
     claimedBy: "",
     claimedAt: "",
   });
+}
 
-  // const response = await getListById(listId);
+export async function updateItem({
+  listId,
+  itemId,
+  itemData,
+}: {
+  listId: string;
+  itemId: string;
+  itemData: Partial<Omit<Item, "id" | "claimedBy" | "claimedAt" | "createdAt">>;
+}) {
+  const itemRef = doc(firestore, `${rootPath}/${listId}/items`, itemId);
 
-  // return response;
+  await updateDoc(itemRef, {
+    ...itemData,
+    updatedAt: serverTimestamp(),
+  });
 }
