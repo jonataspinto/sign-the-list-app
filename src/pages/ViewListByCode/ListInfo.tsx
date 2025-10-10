@@ -54,7 +54,7 @@ export function ListInfo({
         variant="ghost"
         asChild
         size="sm"
-        className="absolute top-4 right-4"
+        className="absolute top-4 right-4 p-0! hover:bg-transparent hover:text-destructive cursor-pointer"
       >
         <Link to={`/my-lists/${list?.id}/edit`}>
           <Edit className="size-5" />
