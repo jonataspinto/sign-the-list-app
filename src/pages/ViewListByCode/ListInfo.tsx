@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { copyToClipboard } from "@/lib/utils";
-import { Calendar, Pencil, Plus, Share2 } from "lucide-react";
+import { Calendar, Edit, Plus, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -50,10 +50,22 @@ export function ListInfo({
 
   return (
     <>
+      <Button
+        variant="ghost"
+        asChild
+        size="sm"
+        className="absolute top-4 right-4"
+      >
+        <Link to={`/my-lists/${list?.id}/edit`}>
+          <Edit className="size-5" />
+        </Link>
+      </Button>
+
       <CardHeader>
         <CardTitle className="text-xl">{list?.title}</CardTitle>
         <p className="text-gray-600 text-sm">{list?.description}</p>
       </CardHeader>
+
       <CardContent>
         <div className="flex items-center gap-2 text-sm">
           <Calendar className="w-4 h-4" />
@@ -67,34 +79,26 @@ export function ListInfo({
         </div>
       </CardContent>
       {isOwner && (
-        <CardFooter>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                copyToClipboard(list?.shareCode, () => {
-                  toast.success("Código copiado para a área de transferência!");
-                });
-              }}
-              className="p-0 border-none bg-gray-100 px-2 py-1 rounded text-sm font-mono cursor-pointer"
-            >
-              <Share2 className="w-4 h-4 mr-2" />
-              {list?.shareCode}
-            </Button>
-            <Button asChild size="sm">
-              <Link to={`/my-lists/${list?.id}/add-item`}>
-                <Plus className="w-4 h-4 mr-2" />
-                Adicionar Item
-              </Link>
-            </Button>
-            <Button variant="outline" asChild size="sm">
-              <Link to={`/my-lists/${list?.id}/edit`}>
-                <Pencil className="w-4 h-4 mr-2" />
-                Editar Lista
-              </Link>
-            </Button>
-          </div>
+        <CardFooter className="gap-2 max-sm:grid max-sm:grid-cols-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              copyToClipboard(list?.shareCode, () => {
+                toast.success("Código copiado para a área de transferência!");
+              });
+            }}
+            className="p-0 border-none bg-gray-100 px-2 py-1 rounded text-sm font-mono cursor-pointer"
+          >
+            <Share2 className="w-4 h-4 mr-2" />
+            {list?.shareCode}
+          </Button>
+          <Button asChild size="sm">
+            <Link to={`/my-lists/${list?.id}/add-item`}>
+              <Plus className="w-4 h-4 mr-2" />
+              Adicionar Item
+            </Link>
+          </Button>
         </CardFooter>
       )}
     </>

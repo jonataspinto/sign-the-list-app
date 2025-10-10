@@ -46,7 +46,7 @@ export function ListDetails() {
 
       <h1 className="text-3xl font-bold">Detalhes da lista</h1>
 
-      <Card>
+      <Card className="relative">
         {!list && !isLoading && (
           <CardContent>
             <div className="flex items-center justify-center p-6">
