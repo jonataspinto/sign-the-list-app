@@ -27,6 +27,7 @@ export function ListInfo({
   if (isLoading) {
     return (
       <>
+        <Skeleton className="absolute top-4 right-4 size-5 rounded-sm" />
         <CardHeader>
           <Skeleton className="max-w-72 w-full h-7" />
           <Skeleton className="w-full h-5" />
@@ -39,7 +40,6 @@ export function ListInfo({
         </CardContent>
         <CardFooter>
           <div className="flex gap-2">
-            <Skeleton className="h-8 w-40" />
             <Skeleton className="h-8 w-40" />
             <Skeleton className="h-8 w-40" />
           </div>
