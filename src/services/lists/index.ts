@@ -12,7 +12,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { firestore } from "../firebase/client";
+import { firestore } from "../firebase";
 import { deleteItems, getItemsByListId } from "./items";
 
 const path = "/lists";

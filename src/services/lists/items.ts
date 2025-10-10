@@ -11,7 +11,7 @@ import {
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
-import { firestore } from "../firebase/client";
+import { firestore } from "../firebase";
 
 const rootPath = "/lists";
 
