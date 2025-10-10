@@ -5,37 +5,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
-type ItemFormData = {
+export type ItemFormData = {
   name: string;
   description: string;
   imageUrl: string;
   storeUrl: string;
 };
 
-export function ItemForm({
-  onSubmit,
-}: {
-  listId?: string;
-  onSubmit: (data: ItemFormData) => void;
-}) {
+export function ItemFormFields() {
   const form = useFormContext<ItemFormData>();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = form;
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <>
       <div>
         <Label htmlFor="name" className="mb-2">
           Nome do Item
         </Label>
         <Input
           id="name"
-          {...register("name", {
+          {...form.register("name", {
             required: "Nome é obrigatório",
             minLength: {
               value: 2,
@@ -44,8 +32,10 @@ export function ItemForm({
           })}
           placeholder="Ex: Camiseta azul"
         />
-        {errors.name && (
-          <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
+        {form.formState.errors.name && (
+          <p className="text-sm text-red-600 mt-1">
+            {form.formState.errors.name.message}
+          </p>
         )}
       </div>
 
@@ -55,7 +45,7 @@ export function ItemForm({
         </Label>
         <Textarea
           id="description"
-          {...register("description", {
+          {...form.register("description", {
             required: "Descrição é obrigatória",
             minLength: {
               value: 5,
@@ -65,9 +55,9 @@ export function ItemForm({
           placeholder="Descreva o item..."
           rows={3}
         />
-        {errors.description && (
+        {form.formState.errors.description && (
           <p className="text-sm text-red-600 mt-1">
-            {errors.description.message}
+            {form.formState.errors.description.message}
           </p>
         )}
       </div>
@@ -79,7 +69,7 @@ export function ItemForm({
         <Input
           id="imageUrl"
           type="url"
-          {...register("imageUrl", {
+          {...form.register("imageUrl", {
             pattern: {
               value: /^https?:\/\/.+/,
               message: "URL deve começar com http:// ou https://",
@@ -87,8 +77,10 @@ export function ItemForm({
           })}
           placeholder="https://exemplo.com/imagem.jpg"
         />
-        {errors.imageUrl && (
-          <p className="text-sm text-red-600 mt-1">{errors.imageUrl.message}</p>
+        {form.formState.errors.imageUrl && (
+          <p className="text-sm text-red-600 mt-1">
+            {form.formState.errors.imageUrl.message}
+          </p>
         )}
       </div>
 
@@ -99,7 +91,7 @@ export function ItemForm({
         <Input
           id="storeUrl"
           type="url"
-          {...register("storeUrl", {
+          {...form.register("storeUrl", {
             pattern: {
               value: /^https?:\/\/.+/,
               message: "URL deve começar com http:// ou https://",
@@ -107,25 +99,37 @@ export function ItemForm({
           })}
           placeholder="https://loja.com/produto"
         />
-        {errors.storeUrl && (
-          <p className="text-sm text-red-600 mt-1">{errors.storeUrl.message}</p>
+        {form.formState.errors.storeUrl && (
+          <p className="text-sm text-red-600 mt-1">
+            {form.formState.errors.storeUrl.message}
+          </p>
         )}
       </div>
+    </>
+  );
+}
 
-      <div className="flex gap-2">
-        <Button type="submit" disabled={isSubmitting} className="flex-1">
-          <Plus className="w-4 h-4 mr-2" />
-          {isSubmitting ? "Adicionando..." : "Adicionar Item"}
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => reset()}
-          disabled={isSubmitting}
-        >
-          Limpar
-        </Button>
-      </div>
-    </form>
+export function ItemFormActions() {
+  const form = useFormContext<ItemFormData>();
+
+  return (
+    <div className="flex gap-2">
+      <Button
+        type="submit"
+        disabled={form.formState.isSubmitting}
+        className="flex-1"
+      >
+        <Plus className="w-4 h-4 mr-2" />
+        {form.formState.isSubmitting ? "Adicionando..." : "Adicionar Item"}
+      </Button>
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => form.reset()}
+        disabled={form.formState.isSubmitting}
+      >
+        Limpar
+      </Button>
+    </div>
   );
 }

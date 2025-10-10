@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ItemForm } from "./ItemForm";
+import { ItemFormActions, ItemFormFields } from "./ItemForm";
 import { ItemPreview } from "./ItemPreview";
 import { useAddItemPage, type AddItemFormData } from "./useAddItemPage";
 
@@ -64,7 +64,13 @@ export function AddItemPage() {
 
           <FormProvider {...form}>
             <div className="flex flex-col space-y-6 w-full md:grid md:grid-cols-2 md:gap-6">
-              <ItemForm listId={listId} onSubmit={onSubmit} />
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <ItemFormFields />
+                <ItemFormActions />
+              </form>
 
               <ItemPreview />
             </div>
