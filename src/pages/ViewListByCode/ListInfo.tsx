@@ -73,7 +73,7 @@ export function ListInfo({
           <span>
             {list?.eventDate &&
               Intl.DateTimeFormat("pt-BR", {
-                dateStyle: "long",
+                dateStyle: "medium",
               }).format(new Date(list.eventDate))}
           </span>
         </div>
