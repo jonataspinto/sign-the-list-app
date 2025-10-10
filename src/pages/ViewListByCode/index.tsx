@@ -20,14 +20,14 @@ const formSchema = z.object({
     })
     .min(6, { message: "Código deve ter 6 caracteres" })
     .max(6, { message: "Código deve ter 6 caracteres" })
-    .regex(/^[A-Z0-9]+$/, {
+    .regex(/^[a-zA-Z0-9]+$/, {
       message: "Código deve conter apenas letras e números",
     }),
 });
 
 export function ViewListByCode() {
   const [list, setList] = useState<List | null>(null);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const code = searchParams.get("shareCode") ?? "";
 
@@ -48,6 +48,7 @@ export function ViewListByCode() {
       const listData = await getListByShareCode(data.shareCode.toUpperCase());
 
       setList({ ...listData });
+      setSearchParams({ shareCode: data.shareCode.toUpperCase() });
     } catch (error) {
       console.error("Erro ao buscar lista:", error);
       setList(null);
