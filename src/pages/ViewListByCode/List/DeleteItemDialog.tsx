@@ -46,7 +46,7 @@ export function DeleteItemDialog({
         <AlertDialogTrigger asChild>
           <Button
             variant="ghost"
-            className="absolute right-2 top-4 hover:bg-transparent hover:text-destructive cursor-pointer z-10"
+            className="absolute left-2 top-4 hover:bg-transparent hover:text-destructive cursor-pointer z-10"
           >
             <Trash2 className="size-5" />
           </Button>
