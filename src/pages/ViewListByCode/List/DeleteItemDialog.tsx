@@ -62,10 +62,12 @@ export function DeleteItemDialog({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="w-28">Cancelar</AlertDialogCancel>
+            <AlertDialogCancel className="w-28 max-sm:w-full">
+              Cancelar
+            </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteItem}
-              className="bg-destructive text-white hover:bg-destructive/90 w-28"
+              className="bg-destructive text-white hover:bg-destructive/90 w-28 max-sm:w-full"
             >
               {isPending ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
