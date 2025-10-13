@@ -1,3 +1,4 @@
+import { ConditionalRender } from "@/components/ConditionalRender";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -78,28 +79,30 @@ export function ViewListByCode() {
                 maxLength={6}
               />
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <Loader2Icon className="animate-spin" />
-                ) : (
-                  <>
-                    <Search className="w-5 h-5" />
-                    Buscar lista
-                  </>
-                )}
+                <ConditionalRender
+                  condition={!isSubmitting}
+                  fallback={<Loader2Icon className="animate-spin" />}
+                >
+                  <Search className="w-5 h-5" />
+                  Buscar lista
+                </ConditionalRender>
               </Button>
             </div>
-            {errors.shareCode && (
+
+            <ConditionalRender condition={!!errors.shareCode}>
               <p className="text-sm text-red-600 mt-1">
-                {errors.shareCode.message}
+                {errors?.shareCode?.message}
               </p>
-            )}
+            </ConditionalRender>
           </form>
         </CardContent>
 
         {<ListInfo list={list} isLoading={isSubmitting} />}
 
         {/* No result */}
-        {!!shareCode && !isSubmitting && isSubmitted && !list && (
+        <ConditionalRender
+          condition={!!shareCode && !isSubmitting && isSubmitted && !list}
+        >
           <CardContent className="text-center py-8">
             <h3 className="text-lg font-semibold mb-2">Lista não encontrada</h3>
             <p className="text-gray-600 mb-4">
@@ -109,17 +112,15 @@ export function ViewListByCode() {
               Verifique se o código está correto e tente novamente.
             </p>
           </CardContent>
-        )}
+        </ConditionalRender>
       </Card>
 
-      <>
-        {!isSubmitting && list && (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold">Itens da Lista</h2>
-            <List list={list} />
-          </div>
-        )}
-      </>
+      <ConditionalRender condition={!isSubmitting && !!list}>
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold">Itens da Lista</h2>
+          <List list={list!} />
+        </div>
+      </ConditionalRender>
     </div>
   );
 }
