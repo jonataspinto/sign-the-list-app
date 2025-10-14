@@ -144,7 +144,7 @@ export function Item({
                 onUnclaimItem(item.id!);
               }}
               disabled={
-                !(isAuthenticated && user && item.claimedBy === user.id)
+                !!(isAuthenticated && user && item?.claimedBy === user.id)
               }
             >
               {isUnClaiming ? (
