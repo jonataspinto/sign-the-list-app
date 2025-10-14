@@ -17,8 +17,8 @@ export function AvatarLink() {
       <Avatar>
         <AvatarImage src={user?.photoURL} />
         <AvatarFallback className="uppercase">
-          {firstName.charAt(0)}
-          {lastName.charAt(0)}
+          {firstName?.charAt?.(0)}
+          {lastName?.charAt?.(0)}
         </AvatarFallback>
       </Avatar>
     </Link>
