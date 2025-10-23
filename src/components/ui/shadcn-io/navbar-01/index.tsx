@@ -163,6 +163,7 @@ export const Navbar01 = forwardRef<HTMLElement, Navbar01Props>(
                             to={link.href}
                             className={cn(
                               "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
+                              "animate-in fade-in duration-300",
                               link.href === locationStore.pathname
                                 ? "bg-accent text-accent-foreground"
                                 : "text-foreground/80 hover:text-foreground"
