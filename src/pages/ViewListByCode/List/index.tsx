@@ -47,7 +47,7 @@ export function List({
 
   return (
     <>
-      <Card>
+      <Card className="animate-in fade-in duration-700">
         <CardContent>
           <div className="grid grid-cols-2 gap-4 pt-4">
             <div className="text-center p-4 bg-green-50 rounded-lg">
@@ -66,7 +66,7 @@ export function List({
         </CardContent>
       </Card>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-in fade-in duration-1000">
         {Object.values(items)?.map((item) => (
           <Item
             key={item.id}

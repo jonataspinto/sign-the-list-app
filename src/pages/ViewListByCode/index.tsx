@@ -59,7 +59,7 @@ export function ViewListByCode() {
 
   return (
     <div className="space-y-6">
-      <div>
+      <div className="animate-in fade-in duration-300">
         <h1 className="text-3xl font-bold mb-2">Visualizar Lista</h1>
         <p className="text-gray-600">
           Digite o código de compartilhamento para visualizar uma lista
@@ -68,8 +68,12 @@ export function ViewListByCode() {
 
       <Card>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 animate-in fade-in duration-1000"
+          >
             <Label htmlFor="shareCode">Código de Compartilhamento</Label>
+
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               <Input
                 id="shareCode"
