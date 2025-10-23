@@ -14,7 +14,7 @@ import DeleteListDialog from "./DeleteListDialog";
 
 export function MyListItem({ list }: { list: List }) {
   return (
-    <Card key={list.id} className="relative">
+    <Card key={list.id} className="relative animate-in fade-in duration-700">
       <DeleteListDialog listId={list.id} />
       <CardHeader>
         <CardTitle className="h-6 uppercase">{list.title}</CardTitle>

@@ -32,7 +32,7 @@ export function MyLists() {
       <Button
         variant="outline"
         size="sm"
-        className="w-fit"
+        className="w-fit animate-in fade-in duration-300"
         onClick={() => navigate(-1)}
       >
         <ArrowLeft className="w-4 h-4 mr-2" />
@@ -48,7 +48,7 @@ export function MyLists() {
           lists?.map((list) => <MyListItem key={list.id} list={list} />)}
 
         {isEmpty && (
-          <Card className="col-span-3">
+          <Card className="col-span-3 animate-in fade-in duration-700">
             <CardContent className="text-center py-8">
               <p className="text-gray-600">
                 Esta lista ainda não possui itens.
