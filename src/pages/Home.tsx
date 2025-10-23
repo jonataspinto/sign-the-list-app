@@ -7,10 +7,10 @@ export function Home() {
   return (
     <div className="container mx-auto py-12 flex flex-col items-center gap-10">
       <div className="text-center max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold mb-4 text-primary">
+        <h1 className="text-4xl font-bold mb-4 text-primary animate-in fade-in duration-200">
           Bem-vindo ao Sign The List!
         </h1>
-        <p className="text-lg text-muted-foreground mb-6">
+        <p className="text-lg text-muted-foreground mb-6 animate-in fade-in duration-300">
           Organize qualquer ocasião especial com facilidade! Crie, compartilhe e
           gerencie listas para chá de panela, chá de casa nova, aniversários,
           casamentos, chá de bebê, amigo secreto, formaturas, doações, eventos
@@ -18,7 +18,7 @@ export function Home() {
           e torne cada evento mais prático e inesquecível para todos os
           participantes.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in duration-400">
           <Link to="/create-list">
             <Button size="lg">Criar minha lista</Button>
           </Link>
@@ -30,7 +30,7 @@ export function Home() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl animate-in fade-in duration-900">
         <Card className="p-6 flex flex-col items-center text-center">
           <Coffee className="mb-4 w-16 h-16" />
           <h2 className="text-xl font-semibold mb-2">Chá de Panela</h2>
