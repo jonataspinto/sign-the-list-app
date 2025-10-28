@@ -128,6 +128,7 @@ export function Item({
               onClick={() => {
                 onClaimItem(item.id!);
               }}
+              disabled={Boolean(item?.claimedBy)}
             >
               {isClaiming ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -144,7 +145,9 @@ export function Item({
                 onUnclaimItem(item.id!);
               }}
               disabled={
-                !!(isAuthenticated && user && item?.claimedBy === user.id)
+                !item?.claimedBy ||
+                (Boolean(item?.claimedBy && item?.claimedBy !== user?.id) &&
+                  !isOwner)
               }
             >
               {isUnClaiming ? (
