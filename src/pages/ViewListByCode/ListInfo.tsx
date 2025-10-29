@@ -78,29 +78,33 @@ export function ListInfo({
           </span>
         </div>
       </CardContent>
-      {isOwner && (
-        <CardFooter className="gap-2 max-sm:grid max-sm:grid-cols-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              copyToClipboard(list?.shareCode, () => {
-                toast.success("Código copiado para a área de transferência!");
-              });
-            }}
-            className="p-0 border-none bg-gray-100 px-2 py-1 rounded text-sm font-mono cursor-pointer"
-          >
-            <Share2 className="w-4 h-4 mr-2" />
-            {list?.shareCode}
-          </Button>
+
+      <CardFooter className="gap-2 max-sm:grid max-sm:grid-cols-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            const fullUrl = `${window.location.origin}/view-list?shareCode=${list?.shareCode}`;
+
+            copyToClipboard(fullUrl, () => {
+              toast.success("URL copiada para a área de transferência!");
+            });
+          }}
+          className="p-0 border-none bg-gray-100 px-2 py-1 rounded text-sm font-mono cursor-pointer"
+        >
+          <Share2 className="w-4 h-4 mr-2" />
+          {list?.shareCode}
+        </Button>
+
+        {isOwner && (
           <Button asChild size="sm">
             <Link to={`/my-lists/${list?.id}/add-item`}>
               <Plus className="w-4 h-4 mr-2" />
               Adicionar Item
             </Link>
           </Button>
-        </CardFooter>
-      )}
+        )}
+      </CardFooter>
     </>
   );
 }
