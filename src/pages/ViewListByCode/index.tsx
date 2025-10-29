@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { getListByShareCode } from "@/services/lists";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon, Search } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -31,6 +31,7 @@ export function ViewListByCode() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const code = searchParams.get("shareCode") ?? "";
+  const submittedByParamCount = useRef(0);
 
   const {
     register,
@@ -44,18 +45,29 @@ export function ViewListByCode() {
 
   const shareCode = watch("shareCode");
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      const listData = await getListByShareCode(data.shareCode.toUpperCase());
+  const onSubmit = useCallback(
+    async (data: z.infer<typeof formSchema>) => {
+      try {
+        submittedByParamCount.current += 1;
 
-      setList({ ...listData });
-      setSearchParams({ shareCode: data.shareCode.toUpperCase() });
-    } catch (error) {
-      console.error("Erro ao buscar lista:", error);
-      setList(null);
-      toast.error("Lista não encontrada com este código");
+        const listData = await getListByShareCode(data.shareCode.toUpperCase());
+
+        setList({ ...listData });
+        setSearchParams({ shareCode: data.shareCode.toUpperCase() });
+      } catch (error) {
+        console.error("Erro ao buscar lista:", error);
+        setList(null);
+        toast.error("Lista não encontrada com este código");
+      }
+    },
+    [setSearchParams]
+  );
+
+  useEffect(() => {
+    if (submittedByParamCount.current < 1 && code) {
+      handleSubmit(onSubmit)();
     }
-  };
+  }, [code, isSubmitted, handleSubmit, onSubmit]);
 
   return (
     <div className="space-y-6">
