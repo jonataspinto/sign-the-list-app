@@ -15,6 +15,7 @@ import { Layout } from "./components/Layout.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import "./index.css";
 
+import { SignupPage } from "./pages/Auth/Signup/index.tsx";
 import { MyLists } from "./pages/MyLists/index.tsx";
 import { SessionProvider } from "./providers/session";
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
       },
       {
         path: "profile",
