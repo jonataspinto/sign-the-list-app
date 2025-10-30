@@ -98,7 +98,11 @@ export function LoginForm({
                 />
               </div>
               <Button type="submit" className="w-full cursor-pointer">
-                {isPending ? <Loader2Icon className="animate-spin" /> : "Login"}
+                {isPending ? (
+                  <Loader2Icon className="animate-spin" />
+                ) : (
+                  "Entrar"
+                )}
               </Button>
               <Button
                 variant="outline"
@@ -106,7 +110,8 @@ export function LoginForm({
                 type="button"
                 onClick={loginWithGoogle}
               >
-                Login with Google
+                <img src="/google-icon.svg" alt="Google" className="size-4" />
+                Continuar com Google
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
