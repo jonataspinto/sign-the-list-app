@@ -1,4 +1,5 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
+import { GoBackButton } from "@/components/GoBackButton";
 import { ListInfo } from "@/components/ListInfo";
 import { ListItemsToSubscribe } from "@/components/ListItemsToSubscribe";
 import { Button } from "@/components/ui/button";
@@ -71,6 +72,8 @@ export function ViewListByCode() {
 
   return (
     <div className="space-y-6">
+      <GoBackButton />
+
       <div className="animate-in fade-in duration-300">
         <h1 className="text-3xl font-bold mb-2">Visualizar Lista</h1>
         <p className="text-gray-600">
