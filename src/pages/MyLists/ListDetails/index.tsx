@@ -1,3 +1,4 @@
+import { GoBackButton } from "@/components/GoBackButton";
 import { ListInfo } from "@/components/ListInfo";
 import { ListItemsToSubscribe } from "@/components/ListItemsToSubscribe";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { SessionContext } from "@/providers/session/context";
 import { observeList } from "@/services/lists";
 import { ArrowLeft } from "lucide-react";
 import { use, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export function ListDetails() {
   const { listId } = useParams<{ listId: string }>();
@@ -30,19 +31,9 @@ export function ListDetails() {
 
   const isOwner = user?.id === list?.ownerId;
 
-  const navigate = useNavigate();
-
   return (
     <div className="space-y-6">
-      <Button
-        variant="outline"
-        size="sm"
-        className="w-fit"
-        onClick={() => navigate(-1)}
-      >
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Voltar
-      </Button>
+      <GoBackButton />
 
       <h1 className="text-3xl font-bold">Detalhes da lista</h1>
 

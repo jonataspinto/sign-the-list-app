@@ -1,9 +1,10 @@
+import { GoBackButton } from "@/components/GoBackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getListById, updateList } from "@/services/lists";
-import { ArrowLeft, Loader2Icon } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -61,15 +62,7 @@ export function EditListPage() {
 
   return (
     <div className="space-y-6 ">
-      <Button
-        variant="outline"
-        size="sm"
-        className="w-fit"
-        onClick={() => navigate(-1)}
-      >
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Voltar
-      </Button>
+      <GoBackButton />
 
       <div className="max-w-xl mx-auto space-y-6">
         <h1 className="text-3xl font-bold">Editar lista</h1>

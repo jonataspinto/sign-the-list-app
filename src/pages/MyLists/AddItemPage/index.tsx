@@ -1,16 +1,13 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
-import { Button } from "@/components/ui/button";
+import { GoBackButton } from "@/components/GoBackButton";
 import { addItemToList } from "@/services/lists/items";
-import { ArrowLeft } from "lucide-react";
 import { FormProvider } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { ItemFormActions, ItemFormFields } from "./ItemForm";
 import { ItemPreview } from "./ItemPreview";
 import { useAddItemPage, type AddItemFormData } from "./useAddItemPage";
 
 export function AddItemPage() {
-  const navigate = useNavigate();
   const { list, isLoading, form, listId } = useAddItemPage();
 
   const onSubmit = async ({ repeat, ...data }: AddItemFormData) => {
@@ -34,15 +31,9 @@ export function AddItemPage() {
 
   return (
     <div className="space-y-6">
-      <Button
-        variant="outline"
-        size="sm"
-        className="w-fit"
-        onClick={() => navigate(-1)}
-      >
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Voltar
-      </Button>
+      <ConditionalRender condition={!isLoading}>
+        <GoBackButton />
+      </ConditionalRender>
 
       <ConditionalRender condition={isLoading}>
         <div className="flex items-center justify-center p-6">
