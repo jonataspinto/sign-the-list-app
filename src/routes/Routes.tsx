@@ -2,17 +2,17 @@ import {
   AddItemPage,
   CreateListPage,
   EditListPage,
+  ForgotPasswordPage,
   Home,
   ListDetails,
   LoginPage,
   ProfilePage,
+  SignupPage,
   ViewListByCode,
 } from "@/pages";
 import { createBrowserRouter } from "react-router-dom";
 
 import { Layout } from "@/components/Layout";
-import { ForgotPasswordPage } from "../pages/Auth/ForgotPasswordPage/index.tsx";
-import { SignupPage } from "../pages/Auth/Signup/index.tsx";
 import { MyLists } from "../pages/MyLists/index.tsx";
 import { ProtectedRoute } from "./ProtectedRoute";
 
