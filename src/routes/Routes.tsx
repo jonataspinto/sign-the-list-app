@@ -6,6 +6,7 @@ import {
   Home,
   ListDetails,
   LoginPage,
+  MyLists,
   ProfilePage,
   SignupPage,
   ViewListByCode,
@@ -13,7 +14,7 @@ import {
 import { createBrowserRouter } from "react-router-dom";
 
 import { Layout } from "@/components/Layout";
-import { MyLists } from "../pages/MyLists/index.tsx";
+
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export const browserRouter = createBrowserRouter([
