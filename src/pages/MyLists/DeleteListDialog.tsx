@@ -16,7 +16,7 @@ import { deleteList } from "@/services/lists";
 import { Loader2, Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
 
-export default function DeleteListDialog({ listId }: { listId: string }) {
+export function DeleteListDialog({ listId }: { listId: string }) {
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
 

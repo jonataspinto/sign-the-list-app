@@ -10,7 +10,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import DeleteListDialog from "./DeleteListDialog";
+import { DeleteListDialog } from "./DeleteListDialog";
 
 export function MyListItem({ list }: { list: List }) {
   return (
