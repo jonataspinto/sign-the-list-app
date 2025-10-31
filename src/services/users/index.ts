@@ -71,7 +71,7 @@ export async function getById(id: string) {
 export async function createUser(payload: {
   name: string;
   email: string;
-  photoURL: string;
+  photoURL?: string;
   plan?: Plan;
 }) {
   const userExist = await getByEmail(payload.email);
