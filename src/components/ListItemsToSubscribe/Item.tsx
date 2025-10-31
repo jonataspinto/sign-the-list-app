@@ -14,6 +14,7 @@ import { Check, ExternalLink, Loader2, X } from "lucide-react";
 import { use, useTransition } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "sonner";
+import { ConditionalRender } from "../ConditionalRender";
 import { DeleteItemDialog } from "./DeleteItemDialog";
 import { EditItemDialog } from "./EditItemDialog";
 
@@ -73,13 +74,12 @@ export function Item({
         !isClaiming && item.claimedBy && "border-orange-200 bg-orange-50",
       ])}
     >
-      {isOwner && (
-        <>
-          <DeleteItemDialog itemId={item.id!} listId={listId} />
-          <EditItemDialog item={item} listId={listId} />
-        </>
-      )}
-      <div className="w-full aspect-square rounded-t-xl overflow-hidden mb-4">
+      <ConditionalRender condition={isOwner}>
+        <DeleteItemDialog itemId={item.id!} listId={listId} />
+        <EditItemDialog item={item} listId={listId} />
+      </ConditionalRender>
+
+      <div className="w-full h-56 aspect-square rounded-t-xl overflow-hidden mb-4">
         <img
           src={item.imageUrl || "/placeholder.svg"}
           alt={item.name}
@@ -89,6 +89,7 @@ export function Item({
           }}
         />
       </div>
+
       <CardHeader className="break-all">
         <CardTitle className="uppercase line-clamp-1">{item.name}</CardTitle>
         <CardDescription className="break-all line-clamp-3">
@@ -111,7 +112,7 @@ export function Item({
       </CardContent>
 
       <CardFooter className="grid gap-2 mb-0 mt-auto">
-        {!isAuthenticated && !item?.claimedBy && (
+        <ConditionalRender condition={!isAuthenticated && !item?.claimedBy}>
           <div>
             <p className="text-sm text-gray-600 mb-2">
               Faça login para reservar este item
@@ -122,16 +123,15 @@ export function Item({
               </Link>
             </Button>
           </div>
-        )}
+        </ConditionalRender>
 
-        {isAuthenticated && (
-          <>
+        <ConditionalRender condition={isAuthenticated}>
+          <ConditionalRender condition={!item?.claimedBy}>
             <Button
               size="sm"
               onClick={() => {
                 onClaimItem(item.id!);
               }}
-              disabled={Boolean(item?.claimedBy)}
             >
               {isClaiming ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -140,18 +140,20 @@ export function Item({
               )}
               Reservar Item
             </Button>
+          </ConditionalRender>
 
+          <ConditionalRender
+            condition={
+              !!item.claimedBy &&
+              ((!!item.claimedBy && isOwner) || item.claimedBy === user?.id)
+            }
+          >
             <Button
               variant="outline"
               size="sm"
               onClick={() => {
                 onUnclaimItem(item.id!);
               }}
-              disabled={
-                !item?.claimedBy ||
-                (Boolean(item?.claimedBy && item?.claimedBy !== user?.id) &&
-                  !isOwner)
-              }
             >
               {isUnClaiming ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -160,8 +162,8 @@ export function Item({
               )}
               Cancelar Reserva
             </Button>
-          </>
-        )}
+          </ConditionalRender>
+        </ConditionalRender>
       </CardFooter>
     </Card>
   );
