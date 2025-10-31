@@ -9,6 +9,7 @@ export type AddItemFormData = {
   description: string;
   imageUrl: string;
   storeUrl: string;
+  repeat?: number;
 };
 
 export function useAddItemPage() {

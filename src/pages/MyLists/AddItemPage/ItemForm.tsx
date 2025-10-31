@@ -1,3 +1,4 @@
+import { ConditionalRender } from "@/components/ConditionalRender";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,9 +11,14 @@ export type ItemFormData = {
   description: string;
   imageUrl: string;
   storeUrl: string;
+  repeat?: number;
 };
 
-export function ItemFormFields() {
+export function ItemFormFields({
+  showRepeatField = false,
+}: {
+  showRepeatField?: boolean;
+}) {
   const form = useFormContext<ItemFormData>();
 
   return (
@@ -105,6 +111,36 @@ export function ItemFormFields() {
           </p>
         )}
       </div>
+
+      <ConditionalRender condition={showRepeatField}>
+        <div className="mb-4">
+          <Label
+            htmlFor="repeat"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Repetir item
+          </Label>
+          <Input
+            id="repeat"
+            type="number"
+            min={1}
+            defaultValue={1}
+            {...form.register("repeat")}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+            placeholder="Quantas vezes criar este item?"
+          />
+          <p className="text-xs text-muted-foreground mt-1">
+            Exemplo: para criar 3 pacotes de fralda, coloque 3. O valor padrão é{" "}
+            <strong>1</strong>, ou seja, será criado apenas um item se não
+            alterar.
+          </p>
+          {form.formState.errors.repeat && (
+            <p className="text-sm text-red-600 mt-1">
+              {form.formState.errors.repeat.message}
+            </p>
+          )}
+        </div>
+      </ConditionalRender>
     </>
   );
 }

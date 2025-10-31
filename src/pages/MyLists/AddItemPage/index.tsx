@@ -13,11 +13,17 @@ export function AddItemPage() {
   const navigate = useNavigate();
   const { list, isLoading, form, listId } = useAddItemPage();
 
-  const onSubmit = async (data: AddItemFormData) => {
+  const onSubmit = async ({ repeat, ...data }: AddItemFormData) => {
     if (!listId) return;
 
     try {
-      await addItemToList(listId, data);
+      if (repeat && repeat > 1) {
+        for (let i = 0; i < repeat; i++) {
+          await addItemToList(listId, data);
+        }
+      } else {
+        await addItemToList(listId, data);
+      }
       toast.success("Item adicionado com sucesso!");
       form.reset();
     } catch (error) {
@@ -54,28 +60,23 @@ export function AddItemPage() {
       </ConditionalRender>
 
       <ConditionalRender condition={!isLoading && !!list}>
-        <>
-          <div>
-            <h1 className="text-3xl font-bold">Adicionar Item</h1>
-            <p className="text-gray-600">
-              Adicione um novo item à lista: {list?.title}
-            </p>
+        <div>
+          <h1 className="text-3xl font-bold">Adicionar Item</h1>
+          <p className="text-gray-600">
+            Adicione um novo item à lista: {list?.title}
+          </p>
+        </div>
+
+        <FormProvider {...form}>
+          <div className="flex flex-col space-y-6 w-full md:grid md:grid-cols-2 md:gap-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <ItemFormFields showRepeatField />
+              <ItemFormActions />
+            </form>
+
+            <ItemPreview />
           </div>
-
-          <FormProvider {...form}>
-            <div className="flex flex-col space-y-6 w-full md:grid md:grid-cols-2 md:gap-6">
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
-                <ItemFormFields />
-                <ItemFormActions />
-              </form>
-
-              <ItemPreview />
-            </div>
-          </FormProvider>
-        </>
+        </FormProvider>
       </ConditionalRender>
     </div>
   );
