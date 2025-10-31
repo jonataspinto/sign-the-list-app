@@ -1,7 +1,7 @@
-import { LoginForm } from "@/pages/Auth/LoginForm";
 import { SessionContext } from "@/providers/session/context";
 import { use, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { LoginForm } from "./LoginForm";
 
 export function LoginPage() {
   const navigate = useNavigate();
