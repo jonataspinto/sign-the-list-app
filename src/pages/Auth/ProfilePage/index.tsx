@@ -1,7 +1,7 @@
 import { AvatarLink } from "@/components/AvatarLink";
 import { SessionContext } from "@/providers/session/context";
+import { logout } from "@/services/firebase";
 import { use } from "react";
-import { logout } from "../../services/firebase";
 
 export function ProfilePage() {
   const { user, isLoading } = use(SessionContext);

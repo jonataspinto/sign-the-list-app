@@ -1,6 +1,6 @@
 export * from "./Auth/ForgotPasswordPage";
 export * from "./Auth/LoginPage";
-export * from "./Auth/Profile";
+export * from "./Auth/ProfilePage";
 export * from "./Auth/SignupPage";
 export * from "./CreateList";
 export * from "./Home";
