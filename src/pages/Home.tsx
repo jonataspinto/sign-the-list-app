@@ -20,10 +20,12 @@ export function Home() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in duration-400">
           <Link to="/create-list">
-            <Button size="lg">Criar minha lista</Button>
+            <Button size="lg" className="w-40">
+              Criar minha lista
+            </Button>
           </Link>
           <Link to="/view-list">
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" className="w-40">
               Ver uma lista
             </Button>
           </Link>
