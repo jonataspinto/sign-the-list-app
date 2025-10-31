@@ -12,7 +12,7 @@ import { SessionContext } from "@/providers/session/context";
 import { claimItem, unclaimItem } from "@/services/lists/items";
 import { Check, ExternalLink, Loader2, X } from "lucide-react";
 import { use, useTransition } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { DeleteItemDialog } from "./DeleteItemDialog";
 import { EditItemDialog } from "./EditItemDialog";
@@ -30,6 +30,7 @@ export function Item({
   const [isClaiming, startClaimingTransition] = useTransition();
   const [isUnClaiming, startUnClaimingTransition] = useTransition();
   const isOwner = user?.id === ownerId;
+  const { pathname, search } = useLocation();
 
   const onClaimItem = async (itemId: string) => {
     if (!item || !user) return;
@@ -110,13 +111,15 @@ export function Item({
       </CardContent>
 
       <CardFooter className="grid gap-2 mb-0 mt-auto">
-        {!isAuthenticated && (
+        {!isAuthenticated && !item?.claimedBy && (
           <div>
             <p className="text-sm text-gray-600 mb-2">
               Faça login para reservar este item
             </p>
             <Button size="sm" variant="outline" asChild>
-              <Link to="/login">Fazer Login</Link>
+              <Link to={`/login?redirect=${pathname}${search}`}>
+                Fazer Login
+              </Link>
             </Button>
           </div>
         )}
