@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default function ProtectedRoute({ children }: Props) {
+export function ProtectedRoute({ children }: Props) {
   const { isLoading, isAuthenticated } = use(SessionContext);
 
   const locationState = useLocation();
