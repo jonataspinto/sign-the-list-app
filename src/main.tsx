@@ -15,6 +15,7 @@ import { Layout } from "./components/Layout.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import "./index.css";
 
+import { ForgotPasswordPage } from "./pages/Auth/ForgotPasswordPage/index.tsx";
 import { SignupPage } from "./pages/Auth/Signup/index.tsx";
 import { MyLists } from "./pages/MyLists/index.tsx";
 import { SessionProvider } from "./providers/session";
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupPage />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordPage />,
       },
       {
         path: "profile",
