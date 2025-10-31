@@ -14,11 +14,12 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { signUpWithEmail } from "@/services/firebase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -33,6 +34,7 @@ export function SignupForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [isPending, startTransition] = useTransition();
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,8 +48,14 @@ export function SignupForm({
   const handleSubmit = form.handleSubmit(async (data) => {
     startTransition(async () => {
       try {
-        console.log("🚀 ~ SignupForm ~ data:", data);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await signUpWithEmail(data).then((user) => {
+          if (user) {
+            toast.success(
+              "Conta criada com sucesso! Email de verificação enviado."
+            );
+            navigate("/login");
+          }
+        });
       } catch (error) {
         console.error(error);
         toast.error("Erro ao fazer login");
