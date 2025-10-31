@@ -1,3 +1,4 @@
+import { ListInfo } from "@/components/ListInfo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SessionContext } from "@/providers/session/context";
@@ -6,7 +7,6 @@ import { ArrowLeft } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { List } from "../../ViewListByCode/List";
-import { ListInfo } from "../../ViewListByCode/ListInfo";
 
 export function ListDetails() {
   const { listId } = useParams<{ listId: string }>();

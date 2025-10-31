@@ -1,4 +1,5 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
+import { ListInfo } from "@/components/ListInfo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,6 @@ import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import z from "zod";
 import { List } from "./List";
-import { ListInfo } from "./ListInfo";
 
 const formSchema = z.object({
   shareCode: z
