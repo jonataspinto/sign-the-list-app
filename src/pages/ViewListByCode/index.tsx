@@ -1,5 +1,6 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
 import { ListInfo } from "@/components/ListInfo";
+import { ListItemsToSubscribe } from "@/components/ListItemsToSubscribe";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,6 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import z from "zod";
-import { List } from "./List";
 
 const formSchema = z.object({
   shareCode: z
@@ -134,7 +134,7 @@ export function ViewListByCode() {
       <ConditionalRender condition={!isSubmitting && !!list}>
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">Itens da Lista</h2>
-          <List list={list!} />
+          <ListItemsToSubscribe list={list!} />
         </div>
       </ConditionalRender>
     </div>

@@ -3,7 +3,7 @@ import { observeListItems } from "@/services/lists/items";
 import { useEffect, useState } from "react";
 import { Item } from "./Item";
 
-export function List({
+export function ListItemsToSubscribe({
   list,
   emptyStateMessage,
 }: {

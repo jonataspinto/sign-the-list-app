@@ -1,4 +1,5 @@
 import { ListInfo } from "@/components/ListInfo";
+import { ListItemsToSubscribe } from "@/components/ListItemsToSubscribe";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SessionContext } from "@/providers/session/context";
@@ -6,7 +7,6 @@ import { observeList } from "@/services/lists";
 import { ArrowLeft } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { List } from "../../ViewListByCode/List";
 
 export function ListDetails() {
   const { listId } = useParams<{ listId: string }>();
@@ -73,7 +73,7 @@ export function ListDetails() {
       {list && !isLoading && (
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold">Itens da Lista</h2>
-          <List list={list} />
+          <ListItemsToSubscribe list={list} />
         </div>
       )}
     </div>
