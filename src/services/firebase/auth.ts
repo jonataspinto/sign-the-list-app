@@ -7,7 +7,7 @@ import {
   type User as FirebaseUser,
 } from "firebase/auth";
 
-import { createUser } from "../users";
+import { createUser, getByEmail } from "../users";
 import { auth } from "./client";
 
 const provider = new GoogleAuthProvider();
@@ -18,11 +18,7 @@ export async function loginWithEmail(
 ): Promise<User> {
   const result = await signInWithEmailAndPassword(auth, email, password);
 
-  const user = await createUser({
-    email: result.user.email!,
-    name: result.user.displayName!,
-    photoURL: result.user.photoURL!,
-  });
+  const user = await getByEmail(result.user.email!);
 
   return user;
 }
