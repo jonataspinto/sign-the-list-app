@@ -2,7 +2,7 @@ export * from "./Auth/ForgotPasswordPage";
 export * from "./Auth/LoginPage";
 export * from "./Auth/ProfilePage";
 export * from "./Auth/SignupPage";
-export * from "./CreateList";
+export * from "./CreateListPage";
 export * from "./Home";
 export * from "./MyLists/AddItemPage";
 export * from "./MyLists/EditListPage";

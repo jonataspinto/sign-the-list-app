@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { SessionContext } from "@/providers/session/context";
 import { createList } from "@/services/lists";
 import { Loader2Icon } from "lucide-react";
@@ -8,7 +9,6 @@ import { use } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Textarea } from "./ui/textarea";
 
 type CreateListFormData = {
   title: string;

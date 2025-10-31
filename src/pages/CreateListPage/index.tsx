@@ -1,5 +1,5 @@
-import { CreateListForm } from "@/components/CreateListForm";
 import { Button } from "@/components/ui/button";
+import { CreateListForm } from "@/pages/CreateListPage/CreateListForm";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export function CreateListPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="space-y-6">
       <Button
         variant="outline"
         size="sm"
