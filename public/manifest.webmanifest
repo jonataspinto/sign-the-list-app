@@ -6,6 +6,7 @@
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "description": "Crie e compartilhe listas de presentes para qualquer ocasião!",
+  "lang": "pt-BR",
   "icons": [
     {
       "src": "/logo.svg",
