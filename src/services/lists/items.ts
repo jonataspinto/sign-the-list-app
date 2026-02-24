@@ -17,7 +17,7 @@ const rootPath = "/lists";
 
 export async function addItemToList(
   listId: string,
-  item: Omit<Item, "claimedBy" | "claimedAt">
+  item: Omit<Item, "claimedBy" | "claimedAt">,
 ) {
   const listRef = doc(firestore, rootPath, listId);
   const listDoc = await getDoc(listRef);
@@ -50,7 +50,7 @@ export async function getItemsByListId({
   let items: Record<string, Item> = {};
 
   const itemsCollection = query(
-    collection(firestore, `${rootPath}/${listId}/items`)
+    collection(firestore, `${rootPath}/${listId}/items`),
   );
 
   const itemsCollectionSnap = await getDocs(itemsCollection);
@@ -86,7 +86,7 @@ export async function deleteItems({ listId }: { listId: string }) {
   const batch = writeBatch(firestore);
 
   const itemsCollection = query(
-    collection(firestore, `${rootPath}/${listId}/items`)
+    collection(firestore, `${rootPath}/${listId}/items`),
   );
 
   const itemsCollectionSnap = await getDocs(itemsCollection);
@@ -104,10 +104,10 @@ export function observeListItems(
   }: {
     listId: string;
   },
-  callback: (data: Record<string, Item>) => void
+  callback: (data: Record<string, Item>) => void,
 ) {
   const itemsCollection = query(
-    collection(firestore, `${rootPath}/${listId}/items`)
+    collection(firestore, `${rootPath}/${listId}/items`),
   );
 
   const unsubscribe = onSnapshot(itemsCollection, (querySnapshot) => {
@@ -168,12 +168,16 @@ export async function updateItem({
 }: {
   listId: string;
   itemId: string;
-  itemData: Partial<Omit<Item, "id" | "claimedBy" | "claimedAt" | "createdAt">>;
+  itemData: Partial<
+    Omit<Item, "id" | "claimedBy" | "claimedAt" | "createdAt" | "repeat">
+  >;
 }) {
   const itemRef = doc(firestore, `${rootPath}/${listId}/items`, itemId);
 
+  const { sanitizeObject } = await import("@/lib/sanitizeObject");
+
   await updateDoc(itemRef, {
-    ...itemData,
+    ...sanitizeObject({ ...itemData }),
     updatedAt: serverTimestamp(),
   });
 }
