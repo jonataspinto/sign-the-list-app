@@ -14,8 +14,7 @@ import { Button } from "@/components/ui/button";
 import {
   ItemFormFields,
   type ItemFormData,
-} from "@/pages/MyLists/AddItemPage/ItemForm";
-import { updateItem } from "@/services/lists/items";
+} from "@/pages/MyLists/AddItemPage/ItemFormFields";
 
 import { Edit, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
@@ -39,12 +38,27 @@ export function EditItemDialog({
 
   async function onSubmit(formData: ItemFormData) {
     startTransition(async () => {
+      const { updateItem } = await import("@/services/lists/items");
+      const { productScraper } = await import("@/services/productScrapper");
+      const { toast } = await import("sonner");
+
+      const data = await productScraper(formData.storeUrl);
+
+      if (data) {
+        formData.name = data.productTitle;
+        formData.imageUrl = data.imageUrl;
+      }
+
       try {
         await updateItem({ listId, itemId: item.id!, itemData: formData });
         setOpen(false);
         form.reset();
+        toast.success("Informações do produto atualizadas com sucesso!");
       } catch (error) {
         console.error(error);
+        toast.error(
+          "Erro ao atualizar informações do produto. Tente novamente.",
+        );
       }
     });
   }
