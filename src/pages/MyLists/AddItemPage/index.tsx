@@ -3,8 +3,8 @@ import { GoBackButton } from "@/components/GoBackButton";
 import { addItemToList } from "@/services/lists/items";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
-import { ItemFormFields } from "./ItemForm";
 import { ItemFormActions } from "./ItemFormActions";
+import { ItemFormFields } from "./ItemFormFields";
 import { ItemPreview } from "./ItemPreview";
 import { useAddItemPage, type AddItemFormData } from "./useAddItemPage";
 
