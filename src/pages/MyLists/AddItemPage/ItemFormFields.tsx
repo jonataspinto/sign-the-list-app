@@ -131,10 +131,12 @@ export function ItemFormFields({
         <Label htmlFor="storeUrl" className="mb-2">
           URL da Loja (opcional)
         </Label>
-        <p className="text-xs text-muted-foreground mb-2">
-          As informações serão preenchidas automaticamente ao informar uma URL
-          válida. <strong>Lojas com integração: Mercado Livre, Amazon</strong>
-        </p>
+        <ConditionalRender condition={scrapeProductInfoOnStoreUrlBlur}>
+          <p className="text-xs text-muted-foreground mb-2">
+            As informações serão preenchidas automaticamente ao informar uma URL
+            válida. <strong>Lojas com integração: Mercado Livre, Amazon</strong>
+          </p>
+        </ConditionalRender>
         <Input
           id="storeUrl"
           type="url"
