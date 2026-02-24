@@ -1,9 +1,13 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
+import { LoaderPortal } from "@/components/LoaderPortal";
+import { Overlay } from "@/components/Overlay";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Plus } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Loader, Plus } from "lucide-react";
+import { useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 
 export type ItemFormData = {
@@ -16,13 +20,47 @@ export type ItemFormData = {
 
 export function ItemFormFields({
   showRepeatField = false,
+  scrapeProductInfoOnStoreUrlBlur = false,
 }: {
   showRepeatField?: boolean;
+  scrapeProductInfoOnStoreUrlBlur?: boolean;
 }) {
   const form = useFormContext<ItemFormData>();
+  const [isPending, startTransition] = useTransition();
+
+  async function handleStoreUrlBlur() {
+    if (!scrapeProductInfoOnStoreUrlBlur) return;
+
+    const storeUrl = form.getValues().storeUrl;
+
+    startTransition(async () => {
+      const { productScraper } = await import("@/services/productScrapper");
+
+      const data = await productScraper(storeUrl);
+
+      if (data) {
+        const { toast } = await import("sonner");
+
+        toast.success("Informações do produto preenchidas com sucesso!");
+
+        form.setValue("name", data.productTitle, { shouldDirty: true });
+        form.setValue("imageUrl", data.imageUrl, { shouldDirty: true });
+      }
+    });
+  }
 
   return (
     <>
+      <ConditionalRender
+        condition={scrapeProductInfoOnStoreUrlBlur && isPending}
+      >
+        <LoaderPortal>
+          <Overlay className="backdrop-blur-[2px]">
+            <Loader className="size-10 animate-spin mx-auto mt-[10%]" />
+          </Overlay>
+        </LoaderPortal>
+      </ConditionalRender>
+
       <div>
         <Label htmlFor="name" className="mb-2">
           Nome do Item
@@ -90,10 +128,14 @@ export function ItemFormFields({
         )}
       </div>
 
-      <div>
+      <div className={cn(scrapeProductInfoOnStoreUrlBlur && "order-first")}>
         <Label htmlFor="storeUrl" className="mb-2">
           URL da Loja (opcional)
         </Label>
+        <p className="text-xs text-muted-foreground mb-2">
+          As informações serão preenchidas automaticamente ao informar uma URL
+          válida. <strong>Lojas com integração: Mercado Livre, Amazon</strong>
+        </p>
         <Input
           id="storeUrl"
           type="url"
@@ -103,6 +145,7 @@ export function ItemFormFields({
               message: "URL deve começar com http:// ou https://",
             },
           })}
+          onBlur={handleStoreUrlBlur}
           placeholder="https://loja.com/produto"
         />
         {form.formState.errors.storeUrl && (
