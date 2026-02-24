@@ -1,12 +1,11 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
 import { LoaderPortal } from "@/components/LoaderPortal";
 import { Overlay } from "@/components/Overlay";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { Loader, Plus } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -185,30 +184,5 @@ export function ItemFormFields({
         </div>
       </ConditionalRender>
     </>
-  );
-}
-
-export function ItemFormActions() {
-  const form = useFormContext<ItemFormData>();
-
-  return (
-    <div className="flex gap-2">
-      <Button
-        type="submit"
-        disabled={form.formState.isSubmitting}
-        className="flex-1"
-      >
-        <Plus className="w-4 h-4 mr-2" />
-        {form.formState.isSubmitting ? "Adicionando..." : "Adicionar Item"}
-      </Button>
-      <Button
-        type="button"
-        variant="outline"
-        onClick={() => form.reset()}
-        disabled={form.formState.isSubmitting}
-      >
-        Limpar
-      </Button>
-    </div>
   );
 }

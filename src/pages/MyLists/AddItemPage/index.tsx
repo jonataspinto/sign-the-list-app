@@ -3,7 +3,8 @@ import { GoBackButton } from "@/components/GoBackButton";
 import { addItemToList } from "@/services/lists/items";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
-import { ItemFormActions, ItemFormFields } from "./ItemForm";
+import { ItemFormFields } from "./ItemForm";
+import { ItemFormActions } from "./ItemFormActions";
 import { ItemPreview } from "./ItemPreview";
 import { useAddItemPage, type AddItemFormData } from "./useAddItemPage";
 
@@ -60,8 +61,11 @@ export function AddItemPage() {
 
         <FormProvider {...form}>
           <div className="flex flex-col space-y-6 w-full md:grid md:grid-cols-2 md:gap-6">
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <ItemFormFields showRepeatField />
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col space-y-4"
+            >
+              <ItemFormFields showRepeatField scrapeProductInfoOnStoreUrlBlur />
               <ItemFormActions />
             </form>
 
