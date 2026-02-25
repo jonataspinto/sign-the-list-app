@@ -28,22 +28,31 @@ export function ItemFormFields({
   const [isPending, startTransition] = useTransition();
 
   async function handleStoreUrlBlur() {
-    if (!scrapeProductInfoOnStoreUrlBlur) return;
-
     const storeUrl = form.getValues().storeUrl;
 
+    if (!scrapeProductInfoOnStoreUrlBlur || !storeUrl) return;
+
     startTransition(async () => {
-      const { productScraper } = await import("@/services/productScrapper");
+      const { toast } = await import("sonner");
+      try {
+        const { productScraper } = await import("@/services/productScrapper");
 
-      const data = await productScraper(storeUrl);
+        const data = await productScraper(storeUrl);
 
-      if (data) {
-        const { toast } = await import("sonner");
+        if (data) {
+          toast.success("Informações do produto preenchidas com sucesso!");
 
-        toast.success("Informações do produto preenchidas com sucesso!");
+          form.setValue("name", data.productTitle, { shouldDirty: true });
+          form.setValue("imageUrl", data.imageUrl, { shouldDirty: true });
 
-        form.setValue("name", data.productTitle, { shouldDirty: true });
-        form.setValue("imageUrl", data.imageUrl, { shouldDirty: true });
+          form.clearErrors();
+        }
+      } catch (error) {
+        toast.error(
+          "Não foi possível obter as informações do produto. Verifique a URL e tente novamente. Ou informe os dados manualmente.",
+        );
+        const { trackError } = await import("@/lib/trackError");
+        trackError(error);
       }
     });
   }
@@ -61,7 +70,10 @@ export function ItemFormFields({
       </ConditionalRender>
 
       <div>
-        <Label htmlFor="name" className="mb-2">
+        <Label
+          htmlFor="name"
+          className={cn("mb-2", form.formState.errors.name && ["text-red-600"])}
+        >
           Nome do Item
         </Label>
         <Input
@@ -74,6 +86,7 @@ export function ItemFormFields({
             },
           })}
           placeholder="Ex: Camiseta azul"
+          className={cn(form.formState.errors.name && ["border-red-600"])}
         />
         {form.formState.errors.name && (
           <p className="text-sm text-red-600 mt-1">
@@ -83,7 +96,13 @@ export function ItemFormFields({
       </div>
 
       <div>
-        <Label htmlFor="description" className="mb-2">
+        <Label
+          htmlFor="description"
+          className={cn(
+            "mb-2",
+            form.formState.errors.description && "text-red-600",
+          )}
+        >
           Descrição
         </Label>
         <Textarea
@@ -97,6 +116,7 @@ export function ItemFormFields({
           })}
           placeholder="Descreva o item..."
           rows={3}
+          className={cn(form.formState.errors.description && "border-red-600")}
         />
         {form.formState.errors.description && (
           <p className="text-sm text-red-600 mt-1">
@@ -131,24 +151,26 @@ export function ItemFormFields({
         <Label htmlFor="storeUrl" className="mb-2">
           URL da Loja (opcional)
         </Label>
-        <ConditionalRender condition={scrapeProductInfoOnStoreUrlBlur}>
-          <p className="text-xs text-muted-foreground mb-2">
-            As informações serão preenchidas automaticamente ao informar uma URL
-            válida. <strong>Lojas com integração: Mercado Livre, Amazon</strong>
-          </p>
-        </ConditionalRender>
         <Input
           id="storeUrl"
           type="url"
           {...form.register("storeUrl", {
             pattern: {
+              //TODO: implements validation with zod.
               value: /^https?:\/\/.+/,
               message: "URL deve começar com http:// ou https://",
             },
           })}
           onBlur={handleStoreUrlBlur}
           placeholder="https://loja.com/produto"
+          className={cn(form.formState.errors.storeUrl && "border-red-600")}
         />
+        <ConditionalRender condition={scrapeProductInfoOnStoreUrlBlur}>
+          <p className="text-xs text-muted-foreground mt-1">
+            As informações serão preenchidas automaticamente ao informar uma URL
+            válida. <strong>Lojas com integração: Mercado Livre, Amazon</strong>
+          </p>
+        </ConditionalRender>
         {form.formState.errors.storeUrl && (
           <p className="text-sm text-red-600 mt-1">
             {form.formState.errors.storeUrl.message}
