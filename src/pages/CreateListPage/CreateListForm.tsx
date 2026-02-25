@@ -50,7 +50,9 @@ export function CreateListForm() {
       toast.success("Lista criada com sucesso!");
       navigate("/my-lists");
     } catch (error) {
-      console.error("Erro ao criar lista:", error);
+      const { trackError } = await import("@/lib/trackError");
+
+      trackError(error);
       toast.error("Erro ao criar lista. Tente novamente.");
     }
   };

@@ -45,7 +45,9 @@ export function Item({
         });
         toast.success("Item reservado com sucesso!");
       } catch (error) {
-        console.error("Erro ao reservar item:", error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
         toast.error("Erro ao reservar item. Tente novamente.");
       }
     });
@@ -60,7 +62,9 @@ export function Item({
         });
         toast.success("Reserva cancelada com sucesso!");
       } catch (error) {
-        console.error("Erro ao cancelar reserva:", error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
         toast.error("Erro ao cancelar reserva. Tente novamente.");
       }
     });

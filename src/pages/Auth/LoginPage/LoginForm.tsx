@@ -44,7 +44,9 @@ export function LoginForm({
       try {
         await loginWithEmail(data.email, data.password);
       } catch (error) {
-        console.error(error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
         toast.error("Erro ao fazer login");
         form.setError("email", { message: "Email ou senha inválidos" });
         form.setError("password", { message: "Email ou senha inválidos" });

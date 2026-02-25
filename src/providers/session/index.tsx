@@ -24,7 +24,9 @@ export function SessionProvider({ children }: SessionProviderProps) {
           const userData = await getByEmail(firebaseUser.email!);
           setUser(userData);
         } catch (error) {
-          console.error("Erro ao buscar dados do usuário:", error);
+          const { trackError } = await import("@/lib/trackError");
+
+          trackError(error);
           setUser(null);
         }
       } else {

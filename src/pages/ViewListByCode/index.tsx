@@ -56,12 +56,14 @@ export function ViewListByCode() {
         setList({ ...listData });
         setSearchParams({ shareCode: data.shareCode.toUpperCase() });
       } catch (error) {
-        console.error("Erro ao buscar lista:", error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
         setList(null);
         toast.error("Lista não encontrada com este código");
       }
     },
-    [setSearchParams]
+    [setSearchParams],
   );
 
   useEffect(() => {

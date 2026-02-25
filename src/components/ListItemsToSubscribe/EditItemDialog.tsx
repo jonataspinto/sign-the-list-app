@@ -55,7 +55,10 @@ export function EditItemDialog({
         form.reset();
         toast.success("Informações do produto atualizadas com sucesso!");
       } catch (error) {
-        console.error(error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
+
         toast.error(
           "Erro ao atualizar informações do produto. Tente novamente.",
         );

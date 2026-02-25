@@ -19,7 +19,7 @@ export function DeleteListDialog({ listId }: { listId: string }) {
   const [open, setOpen] = useState(false);
 
   function handleDeleteList(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     event.preventDefault();
     startTransition(async () => {
@@ -27,7 +27,9 @@ export function DeleteListDialog({ listId }: { listId: string }) {
         await deleteList(listId);
         setOpen(false);
       } catch (error) {
-        console.error(error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
       }
     });
   }

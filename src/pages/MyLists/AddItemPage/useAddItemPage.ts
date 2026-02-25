@@ -29,7 +29,9 @@ export function useAddItemPage() {
         const listData = await getListById(listId);
         setList(listData);
       } catch (error) {
-        console.error("Erro ao carregar lista:", error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
         toast.error("Erro ao carregar lista");
         navigate("/my-lists");
       } finally {

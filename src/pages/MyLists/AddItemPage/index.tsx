@@ -25,7 +25,9 @@ export function AddItemPage() {
       toast.success("Item adicionado com sucesso!");
       form.reset();
     } catch (error) {
-      console.error("Erro ao adicionar item:", error);
+      const { trackError } = await import("@/lib/trackError");
+
+      trackError(error);
       toast.error("Erro ao adicionar item. Tente novamente.");
     }
   };

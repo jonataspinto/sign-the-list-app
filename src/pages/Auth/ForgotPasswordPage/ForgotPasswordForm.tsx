@@ -46,7 +46,10 @@ export function ForgotPasswordForm({
         await resetPassword(data.email);
         toast.success("Email de redefinição enviado com sucesso!");
       } catch (error) {
-        console.error(error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
+
         form.setError("email", { message: "Email inválido" });
       }
     });
