@@ -27,7 +27,7 @@ export function DeleteItemDialog({
   const [open, setOpen] = useState(false);
 
   function handleDeleteItem(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     event.preventDefault();
     startTransition(async () => {
@@ -35,7 +35,9 @@ export function DeleteItemDialog({
         await deleteItem({ listId, itemId });
         setOpen(false);
       } catch (error) {
-        console.error(error);
+        const { trackError } = await import("@/lib/trackError");
+
+        trackError(error);
       }
     });
   }
