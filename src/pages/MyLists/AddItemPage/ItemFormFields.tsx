@@ -42,6 +42,9 @@ export function ItemFormFields({
         if (data) {
           toast.success("Informações do produto preenchidas com sucesso!");
 
+          if (data.pageUrl && data.pageUrl !== storeUrl) {
+            form.setValue("storeUrl", data.pageUrl, { shouldDirty: true });
+          }
           form.setValue("name", data.productTitle, { shouldDirty: true });
           form.setValue("imageUrl", data.imageUrl, { shouldDirty: true });
 
