@@ -42,7 +42,17 @@ export function EditItemDialog({
       const { productScraper } = await import("@/services/productScrapper");
       const { toast } = await import("sonner");
 
-      const data = await productScraper(formData.storeUrl);
+      const data = await productScraper(formData.storeUrl).catch(
+        async (error) => {
+          const { trackError } = await import("@/lib/trackError");
+
+          trackError(error);
+          toast.error(
+            "Erro ao buscar informações do produto. Verifique a URL e tente novamente.",
+          );
+          return null;
+        },
+      );
 
       if (data) {
         formData.name = data.productTitle;
