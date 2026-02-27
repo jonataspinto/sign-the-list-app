@@ -14,6 +14,12 @@ export function AddItemPage() {
   const onSubmit = async ({ repeat, ...data }: AddItemFormData) => {
     if (!listId) return;
 
+    if (data.storeUrl) {
+      const { mountStoreUrl } = await import("@/lib/mountStoreUrl");
+
+      data.storeUrl = mountStoreUrl(data.storeUrl);
+    }
+
     try {
       if (repeat && repeat > 1) {
         for (let i = 0; i < repeat; i++) {
