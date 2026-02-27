@@ -44,7 +44,7 @@ export function ItemFormFields({
       try {
         const { productScraper } = await import("@/services/productScrapper");
 
-        const data = await productScraper(storeUrl);
+        const data = await productScraper(storeUrl); //TODO: abort controller to cancel request if user changes URL again before response, or if component unmounts.
 
         if (data) {
           toast.success("Informações do produto preenchidas com sucesso!");
