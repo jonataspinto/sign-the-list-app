@@ -4,6 +4,7 @@ import { Overlay } from "@/components/Overlay";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
 import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { useTransition } from "react";
@@ -43,7 +44,10 @@ export function ItemFormFields({
           toast.success("Informações do produto preenchidas com sucesso!");
 
           if (data.pageUrl && data.pageUrl !== storeUrl) {
-            form.setValue("storeUrl", data.pageUrl, { shouldDirty: true });
+            const { mountStoreUrl } = await import("@/lib/mountStoreUrl");
+            form.setValue("storeUrl", mountStoreUrl(data.pageUrl), {
+              shouldDirty: true,
+            });
           }
           form.setValue("name", data.productTitle, { shouldDirty: true });
           form.setValue("imageUrl", data.imageUrl, { shouldDirty: true });
