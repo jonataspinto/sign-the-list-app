@@ -1,6 +1,4 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
-import { LoaderPortal } from "@/components/LoaderPortal";
-import { Overlay } from "@/components/Overlay";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,6 +28,14 @@ export function ItemFormFields({
 
   async function handleStoreUrlBlur() {
     const storeUrl = form.getValues().storeUrl;
+
+    if (!new RegExp("^https?:\\/\\/.+").test(storeUrl)) {
+      form.setError("storeUrl", {
+        type: "pattern",
+        message: "Url invalida!",
+      });
+      return;
+    }
 
     if (!scrapeProductInfoOnStoreUrlBlur || !storeUrl) return;
 
@@ -66,16 +72,6 @@ export function ItemFormFields({
 
   return (
     <>
-      <ConditionalRender
-        condition={scrapeProductInfoOnStoreUrlBlur && isPending}
-      >
-        <LoaderPortal>
-          <Overlay className="backdrop-blur-[2px]">
-            <Loader className="size-10 animate-spin mx-auto mt-[10%]" />
-          </Overlay>
-        </LoaderPortal>
-      </ConditionalRender>
-
       <div>
         <Label
           htmlFor="name"
@@ -157,6 +153,11 @@ export function ItemFormFields({
       <div className={cn(scrapeProductInfoOnStoreUrlBlur && "order-first")}>
         <Label htmlFor="storeUrl" className="mb-2">
           URL da Loja (opcional)
+          <ConditionalRender
+            condition={scrapeProductInfoOnStoreUrlBlur && isPending}
+          >
+            <Loader className="size-3 animate-spin" />
+          </ConditionalRender>
         </Label>
         <Input
           id="storeUrl"
@@ -171,6 +172,7 @@ export function ItemFormFields({
           onBlur={handleStoreUrlBlur}
           placeholder="https://loja.com/produto"
           className={cn(form.formState.errors.storeUrl && "border-red-600")}
+          disabled={scrapeProductInfoOnStoreUrlBlur && isPending}
         />
         <ConditionalRender condition={scrapeProductInfoOnStoreUrlBlur}>
           <p className="text-xs text-muted-foreground mt-1">
