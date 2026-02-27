@@ -2,7 +2,6 @@ import { ConditionalRender } from "@/components/ConditionalRender";
 import { GoBackButton } from "@/components/GoBackButton";
 import { addItemToList } from "@/services/lists/items";
 import { FormProvider } from "react-hook-form";
-import { toast } from "sonner";
 import { ItemFormActions } from "./ItemFormActions";
 import { ItemFormFields } from "./ItemFormFields";
 import { ItemPreview } from "./ItemPreview";
@@ -13,6 +12,8 @@ export function AddItemPage() {
 
   const onSubmit = async ({ repeat, ...data }: AddItemFormData) => {
     if (!listId) return;
+
+    const { toast } = await import("sonner");
 
     if (data.storeUrl) {
       const { mountStoreUrl } = await import("@/lib/mountStoreUrl");
