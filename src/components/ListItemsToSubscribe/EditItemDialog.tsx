@@ -42,21 +42,30 @@ export function EditItemDialog({
       const { productScraper } = await import("@/services/productScrapper");
       const { toast } = await import("sonner");
 
-      const data = await productScraper(formData.storeUrl).catch(
-        async (error) => {
-          const { trackError } = await import("@/lib/trackError");
+      if (
+        (!!formData.storeUrl && (!formData.name || !formData.imageUrl)) ||
+        formData.storeUrl !== item.storeUrl
+      ) {
+        const data = await productScraper(formData.storeUrl).catch(
+          async (error) => {
+            const { trackError } = await import("@/lib/trackError");
 
-          trackError(error);
-          toast.error(
-            "Erro ao buscar informações do produto. Verifique a URL e tente novamente.",
-          );
-          return null;
-        },
-      );
+            trackError(error);
+            toast.error(
+              "Erro ao buscar informações do produto. Verifique a URL e tente novamente.",
+            );
+            return null;
+          },
+        );
 
-      if (data) {
-        formData.name = data.productTitle;
-        formData.imageUrl = data.imageUrl;
+        if (data) {
+          if (!!data.pageUrl && data.pageUrl) {
+            const { mountStoreUrl } = await import("@/lib/mountStoreUrl");
+            formData.storeUrl = mountStoreUrl(data.pageUrl);
+          }
+          formData.name = data.productTitle;
+          formData.imageUrl = data.imageUrl;
+        }
       }
 
       try {
